@@ -1,0 +1,14 @@
+{
+  "name": "Mbrequester",
+  "version": "0.0.1",
+  "description": "Node.js Addons sceleton",
+  "main": "mbrequester.js",
+  "private": true,
+  "scripts": {
+    "test": "node mbrequester.js"
+  },
+  "gypfile": true,
+  "dependencies": {
+    "bindings": "~1.2.1"
+  }
+}
