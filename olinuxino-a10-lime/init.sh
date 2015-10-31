@@ -8,5 +8,5 @@ git clone -b fido https://github.com/linux-sunxi/meta-sunxi.git
 git clone https://git.congatec.com/yocto/meta-openembedded.git
 git clone https://github.com/imyller/meta-nodejs.git
 
-#MACHINE=olinuxino-a10lime
-hob
+. ./oe-init-build-env 
+MACHINE=olinuxino-a10lime
