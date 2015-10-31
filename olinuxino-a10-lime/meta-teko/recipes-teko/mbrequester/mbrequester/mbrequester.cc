@@ -6,20 +6,56 @@ using namespace v8;
 #include <modbus/modbus.h>
 #include <errno.h>
 
-//поиск модбас устройств
-Handle<Value> search(const Arguments& args) {
-  HandleScope scope;
-  
-  Local<Object> obj = Object::New();
-  obj->Set(String::NewSymbol("temperature"), Number::New(100));
+#include "types.h"
+#include <list>
+#include <iostream>
+#include "mb_2b_request.h"
+#include "ModbusAbstructDevice.h"
+#include "ThermalDevice.h"
 
-  return scope.Close(obj);
+//список обнаруженных устройств
+std::list<ModbusAbstructDevice *> dev_list;
+modbus_t *ctx;
+
+//поиск и идентификация modbus устройств
+Handle<Value> search(const Arguments& args) {
+    HandleScope scope;
+    char buff[100];
+    u16 i;
+
+    for (i = 1; i<=255; i++)
+    {
+        if (modbus_2b_request(i, buff) == OK_RESPONSE)
+        {
+            if (strcmp(buff, "TEKO THERMAL DEV") == 0)
+            {
+                ThermalDevice *th = new ThermalDevice(ctx, i);
+                dev_list.push_front(th);
+            } else {
+
+            }
+        }
+    }
+
+    Local<Object> obj = Object::New();
+
+    i = 0;
+    for (std::list<ModbusAbstructDevice *>::iterator it = dev_list.begin();
+        it != dev_list.end(); 
+        it++, i++)
+    {
+        obj->Set(i, (*it)->form_node_object());
+
+    }
+
+
+    return scope.Close(obj);
 }
 
 //инициализация modbus
 Handle<Value> mb_init(const Arguments& args) {
     HandleScope scope;
-    modbus_t *ctx;
+    
 
     unsigned short regs[10];
     int ret; 
