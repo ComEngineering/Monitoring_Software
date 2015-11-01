@@ -18,8 +18,9 @@ std::list<ModbusAbstructDevice *> dev_list;
 modbus_t *ctx;
 
 //поиск и идентификация modbus устройств
-Handle<Value> search(const Arguments& args) {
-    HandleScope scope;
+void search(const FunctionCallbackInfo<Value>& args) {
+    // HandleScope scope;
+    Isolate* isolate = args.GetIsolate();
     char buff[100];
     u16 i;
 
@@ -37,30 +38,28 @@ Handle<Value> search(const Arguments& args) {
         }
     }
 
-    Local<Object> obj = Object::New();
+    Local<Object> obj = Object::New(isolate);
 
     i = 0;
     for (std::list<ModbusAbstructDevice *>::iterator it = dev_list.begin();
         it != dev_list.end(); 
         it++, i++)
     {
-        obj->Set(i, (*it)->form_node_object());
-
+        obj->Set(i, (*it)->form_node_object(isolate));
     }
 
 
-    return scope.Close(obj);
+    args.GetReturnValue().Set(obj);
 }
 
 //инициализация modbus
-Handle<Value> mb_init(const Arguments& args) {
-    HandleScope scope;
-    
+void mb_init(const FunctionCallbackInfo<Value>& args) {
+    Isolate* isolate = args.GetIsolate();
 
     unsigned short regs[10];
     int ret; 
 
-    Local<Object> obj = Object::New();
+    Local<Object> obj = Object::New(isolate);
 
 
     if (args.Length() < 3)
@@ -70,13 +69,15 @@ Handle<Value> mb_init(const Arguments& args) {
         //stopbits
 
 
-        ThrowException(Exception::TypeError(
-             String::New("Wrong number of arguments")));
-        return scope.Close(obj);
+        isolate->ThrowException(Exception::TypeError(
+            String::NewFromUtf8(isolate, "Wrong number of arguments")));
+
+        args.GetReturnValue().Set(obj);
+        return;
     }
 
     //converting com addr
-    String::Utf8Value str(args[0]->ToString());
+    //String::Utf8Value str(args[0]->ToString());
 
     // ctx = modbus_new_rtu(*str, args[1]->NumberValue(), 'N', 
     //     8, args[2]->NumberValue());
@@ -87,20 +88,21 @@ Handle<Value> mb_init(const Arguments& args) {
         modbus_close(ctx);
         modbus_free(ctx);
 
-        ThrowException(Exception::TypeError(
-             String::New("Unable to create the libmodbus context")));
+        isolate->ThrowException(Exception::TypeError(
+             String::NewFromUtf8(isolate, "Unable to create the libmodbus context")));
         
-        return scope.Close(obj);
+        args.GetReturnValue().Set(obj);
+        return;
     }
 
     modbus_set_slave(ctx, 2);
 
-    // ret = modbus_connect(ctx); 
-    // if (ret == -1) {
-    //     ThrowException(Exception::TypeError(
-    //          String::New(modbus_strerror(errno))));
-    //     return scope.Close(obj);
-    // }
+    // // ret = modbus_connect(ctx); 
+    // // if (ret == -1) {
+    // //     ThrowException(Exception::TypeError(
+    // //          String::New(modbus_strerror(errno))));
+    // //     return scope.Close(obj);
+    // // }
 
     ret = modbus_read_registers(ctx, 0, 2, regs);
 
@@ -108,33 +110,26 @@ Handle<Value> mb_init(const Arguments& args) {
         modbus_close(ctx);
         modbus_free(ctx);
 
-        ThrowException(Exception::TypeError(
-             String::New(modbus_strerror(errno))));
+        isolate->ThrowException(Exception::TypeError(
+             String::NewFromUtf8(isolate, modbus_strerror(errno))));
 
-        return scope.Close(obj);
+        args.GetReturnValue().Set(obj);
+        return;
     }
 
 
+    NODE_SET_METHOD(obj, "search", search);
 
-
-
-    // Local<Object> dev = Object::New();
-    // dev->Set(String::NewSymbol("connect"), 
-    //   FunctionTemplate::New(connect)->GetFunction());
-
-
-    obj->Set(String::NewSymbol("search"), 
-        FunctionTemplate::New(search)->GetFunction());
-
+    //TODO:
+    //remove this after debug
     modbus_close(ctx);
     modbus_free(ctx);
 
-    return scope.Close(obj);
+    args.GetReturnValue().Set(obj);
 }
 
 void Init(Handle<Object> exports) {
-  exports->Set(String::NewSymbol("create"),
-      FunctionTemplate::New(mb_init)->GetFunction());
+    NODE_SET_METHOD(exports, "create", mb_init);
 }
 
 NODE_MODULE(mbrequester, Init)

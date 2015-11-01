@@ -25,9 +25,9 @@ bool ModbusAbstructDevice::isFault()
     return fault;
 }
 
-Local<Object> ModbusAbstructDevice::form_node_object()
+Local<Object> ModbusAbstructDevice::form_node_object(Isolate* isolate)
 {
-	Local<Object> obj = Object::New();
+	Local<Object> obj = Object::New(isolate);
 	return obj;
 }
 
