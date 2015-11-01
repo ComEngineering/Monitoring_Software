@@ -24,7 +24,7 @@ public:
     //is there any error
     virtual bool isFault();
 
-    virtual Local<Object> form_node_object();
+    virtual Local<Object> form_node_object(Isolate* isolate);
 
     u8 get_addr();
 

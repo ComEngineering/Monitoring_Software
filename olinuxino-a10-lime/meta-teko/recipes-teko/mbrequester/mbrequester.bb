@@ -11,9 +11,17 @@ PR = "r0"
 
 inherit npm
 
-DEPENDS = "node node-gyp-native libmodbus"
+DEPENDS = "nodejs node-gyp-native libmodbus"
 
-SRC_URI = "file://mbrequester.cc file://binding.gyp"
+SRC_URI = "file://mbrequester.cc \
+file://binding.gyp \
+file://types.h \
+file://mb_2b_request.h \
+file://mb_2b_request.cpp \
+file://ModbusAbstructDevice.h \
+file://ModbusAbstructDevice.cpp \
+file://ThermalDevice.h \
+file://ThermalDevice.cpp"
 
 S = "${WORKDIR}"
 

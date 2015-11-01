@@ -22,7 +22,7 @@ public:
 
     //update device registers (rw)
     virtual void update();
-    virtual Local<Object> form_node_object();
+    virtual Local<Object> form_node_object(Isolate* isolate);
 
 private:
     u16 *regs;
