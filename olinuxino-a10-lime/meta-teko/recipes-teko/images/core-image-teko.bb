@@ -3,6 +3,8 @@ SUMMARY = "Image for teko monitoring project."
 IMAGE_INSTALL = "packagegroup-core-boot \
 libmodbus \
 nodejs \
+nodemodbus \
+mariadb \
 ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_LINGUAS = " "
