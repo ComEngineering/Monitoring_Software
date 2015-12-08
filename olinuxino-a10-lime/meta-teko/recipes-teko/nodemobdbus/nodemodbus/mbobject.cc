@@ -236,7 +236,7 @@ void MbObject::GetIdString(NODE_ARGS args)
     Isolate* isolate = args.GetIsolate();
     MbObject* obj = ObjectWrap::Unwrap<MbObject>(args.Holder());
     int rc;
-    uint8_t req[] = {0x01, 0x2B, 0x0E, 0x01, 0x00};
+    uint8_t req[] = {0x2B, 0x0E, 0x01, 0x00};
     uint8_t resp[100];
 
     if (args.Length() < 1)
@@ -267,9 +267,6 @@ void MbObject::GetIdString(NODE_ARGS args)
     //parse response here
     if (resp[1] == 0x2b)
     {
-        //01 2B 0E 01 01 00 00 03 00 05 54 52 49 4F 4C 01 .+........TRIOL. 
-        //03 43 54 52 02 0A 76 65 72 20 20 31 2C 30 30 30 .CTR..ver 1,000
-
         char company[10], product[10], rev[10];
 
         uint16_t len = resp[9];
@@ -281,7 +278,19 @@ void MbObject::GetIdString(NODE_ARGS args)
         pnt += len + 2;
         len = pnt[-1];
         memcpy(rev, pnt, len);
+    
+        Local<Object> obj = Object::New(isolate);
+        obj->Set(String::NewFromUtf8(isolate, "company"), String::NewFromUtf8(isolate, company));
+        obj->Set(String::NewFromUtf8(isolate, "product"), String::NewFromUtf8(isolate, product));
+        obj->Set(String::NewFromUtf8(isolate, "rev"), String::NewFromUtf8(isolate, rev));
+
+        args.GetReturnValue().Set(obj);
+        return;
     }
+
+    isolate->ThrowException(v8::Exception::Error(
+        String::NewFromUtf8(isolate, "Wrong request.")));
+
 }
 
 }  // namespace demo
