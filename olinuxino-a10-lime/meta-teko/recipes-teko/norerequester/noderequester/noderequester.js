@@ -49,7 +49,7 @@ function init_mb_req()
 
     try {
         mb = new modbus.MbObject();
-        mb.Connect("/dev/ttyTEST0", 9600, 1);
+        mb.Connect("/dev/ttyUSB0", 9600, 1);
 
         //пробуем загрузить файл с описанием устройств
         obj = JSON.parse(fs.readFileSync('example.mb_conf.js', 'utf8'));
@@ -58,6 +58,11 @@ function init_mb_req()
         console.log(e);
         process.exit(1);
     }
+
+    obj.input.values.forEach(function(e){
+        e.value = 0;
+    });
+
 
     console.log("Starting parameters update ...");
     //начинаем читать параметры
@@ -70,18 +75,27 @@ function update_parameters()
     obj.input.values.forEach(function(e){
         //тут обмен с устройствами и запись в базу данных
         console.log(e.description);
-        
-        var regs = mb.ReadRegisters(e.addr, e.reg, 1);
-        if (regs[0] != e.value) 
+        try{
+            var regs = mb.ReadRegisters(e.addr, e.reg, 1);
+            console.log("Got "+e.name + ": " + regs)
+            if (regs[0] != e.value) 
+            {
+                e.value = regs[0];
+                var dbstring = JSON.stringify(e);
+                //тут сделать запись объекта
+                connection.query("INSERT INTO `mb_parameters` (`name`, `jsobject`) values (?, ?)", [e.name, dbstring], function (error, results, fields) {
+                  // error will be an Error if one occurred during the query
+                  // results will contain the results of the query
+                  // fields will contain information about the returned results fields (if any)
+                  if (error)
+                  {
+                    console.log("ERROR WRITING:" + results);
+                  }
+                });
+            }
+        } catch (err) 
         {
-            e.value = regs[0];
-            var dbstring = JSON.stringify(e);
-            //тут сделать запись объекта
-            connection.query('INSERT INTO `mb_parameters` (`name`, `jsobject`) values (`?`, `?`)', [e.name, dbstring], function (error, results, fields) {
-              // error will be an Error if one occurred during the query
-              // results will contain the results of the query
-              // fields will contain information about the returned results fields (if any)
-            });
+            //console.log(err);
         }
     });
     
