@@ -1,9 +1,50 @@
 var fs = require('fs');
 var mysql = require('mysql');
 var modbus = require('/opt/teko/olinuxino-a10-lime/meta-teko/recipes-teko/nodemobdbus/nodemodbus/build/Release/modbus');
+var dbus = require('dbus-native');
 
 var obj;
 var mb;
+
+var bus = dbus.sessionBus();
+var name = 'teko.modbus';
+bus.requestName(name, 0);
+
+var tekoIface = {
+    name: 'com.teko.modbus',
+    //for debug 
+    methods: {
+        doStuff: ['s', 's'],
+        timesTwo: ['d', 'd'],
+        respondWithDouble: ['s', 'd']
+    },
+    signals: {
+        testsignal: [ 'us', 'name1', 'name2' ]
+    },
+    properties: {
+       TestProperty: 'y'
+    }
+};
+//TODO: create write register function here
+var teko_dbus = {
+    respondWithDouble: function(s) {
+        console.log('Received "' + s + "'");
+        return 3.14159;
+    },
+    timesTwo: function(d) {
+    console.log(d);
+        return d*2; 
+    },
+    doStuff: function(s) {
+        return 'Received "' + s + '" - this is a reply'; 
+    },
+    TestProperty: 42,
+    emit: function(name, param1, param2) {
+        console.log('signal emit', name, param1, param2);
+    }
+};
+bus.exportInterface(teko_dbus, '/com/teko/modbus', tekoIface);
+
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -91,6 +132,10 @@ function update_parameters()
                   {
                     console.log("ERROR WRITING:" + results);
                   }
+
+                  //send modbus update signal via dbus
+                  teko_dbus.emit('testsignal', Date.now(), 'param2');
+
                 });
             }
         } catch (err) 
