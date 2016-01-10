@@ -34,10 +34,10 @@ do_compile() {
 }
 
 do_install() {
-    install -D -m 0755 ${S}/build/Release/modbus.node ${D}${libdir}/nodejs/modbus.node
+    install -D -m 0755 ${S}/build/Release/modbus.node ${D}${libdir}/node_modules/modbus.node
 }
 
-FILES_${PN} += "${libdir}/nodejs/modbus.node"
+FILES_${PN} += "${libdir}/node_modules/modbus.node"
 
 # Prevents do_package failures with:
 # debugsources.list: No such file or directory:
