@@ -12,33 +12,29 @@ bus.requestName(name, 0);
 
 var tekoIface = {
     name: 'com.teko.modbus',
-    //for debug 
     methods: {
-        doStuff: ['s', 's'],
-        timesTwo: ['d', 'd'],
-        respondWithDouble: ['s', 'd']
+        write: ['addr', 'reg', 'val'],
     },
     signals: {
-        testsignal: [ 'us', 'name1', 'name2' ]
-    },
-    properties: {
-       TestProperty: 'y'
+        update: [ 'us', 'name1', 'name2' ]
     }
 };
-//TODO: create write register function here
+
 var teko_dbus = {
-    respondWithDouble: function(s) {
-        console.log('Received "' + s + "'");
-        return 3.14159;
+    //to test
+    //dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write uint16:127 uint16:1 array:uint16:123,124,125
+    write : function(addr, reg, val)
+    {
+        try {
+            //пока плата не поддерживает 10h функцию
+            for (var i=0;i<val.length;i++)
+                mb.WriteRegister(addr, reg+i, val[i]);
+        } catch(e) {
+            console.log(e);
+            return 1;
+        }
+        return 0;
     },
-    timesTwo: function(d) {
-    console.log(d);
-        return d*2; 
-    },
-    doStuff: function(s) {
-        return 'Received "' + s + '" - this is a reply'; 
-    },
-    TestProperty: 42,
     emit: function(name, param1, param2) {
         console.log('signal emit', name, param1, param2);
     }
@@ -66,21 +62,29 @@ connection.connect(function(err) {
     main();
     });
 
-function Int16toNumber(x)
-{
-    x = x << 16;
-    x = x >> 0;
-    return x >> 16;
-}
-
 function main()
 {
+    try {
+        //пробуем загрузить файл с описанием устройств
+        obj = JSON.parse(fs.readFileSync('/opt/example.mb_conf.js', 'utf8'));
+    } catch (e) {
+        console.log(e);
+        process.exit(1);
+    }
 
     console.log("Initialising mysql db ...");
     // пробуем создать базу данных, на случай если её нет
     connection.query('CREATE DATABASE IF NOT EXISTS `teko` CHARACTER SET utf8 COLLATE utf8_general_ci');
     connection.query('USE teko');
-    connection.query('CREATE TABLE IF NOT EXISTS `mb_parameters` (`id` INT(11) NOT NULL AUTO_INCREMENT, `name` CHAR(30) NOT NULL, `jsobject` TEXT NOT NULL, `timestamp` TIMESTAMP NOT NULL, PRIMARY KEY(`id`))', function(err){
+
+    var sql = 'CREATE TABLE IF NOT EXISTS `mb_parameters` (`id` INT(11) NOT NULL AUTO_INCREMENT, `timestamp` TIMESTAMP NOT NULL, ';
+    // задаем колонки для параметров
+    obj.input.values.forEach(function(e){
+        sql += e.name + ' ' + e.sql_type + ', '
+    });
+    sql += 'PRIMARY KEY(`id`))';
+
+    connection.query(sql, function(err){
         if (err)
         {
             console.log('error mysql initialisation: ' + err.stack);
@@ -98,9 +102,6 @@ function init_mb_req()
     try {
         mb = new modbus.MbObject();
         mb.Connect("/dev/ttyS1", 9600, 1);
-
-        //пробуем загрузить файл с описанием устройств
-        obj = JSON.parse(fs.readFileSync('/opt/example.mb_conf.js', 'utf8'));
     } catch(e) 
     {
         console.log(e);
@@ -120,47 +121,54 @@ function init_mb_req()
 //функция чтения/записи параметров
 function update_parameters()
 {
+    var dirty = false;
+    
     obj.input.values.forEach(function(e){
         //тут обмен с устройствами и запись в базу данных
         console.log(e.description);
         try{
             var regs = mb.ReadRegisters(e.addr, e.reg, 1);
             if (e.convert != null)
-	    {                                          
-	        var func = new Function('return ' + e.convert)();
-	    	regs[0] = func(regs[0]);
-	    }
-	    console.log("Got "+e.name + ": " + regs)
+            {                                          
+                var func = new Function('return ' + e.convert)();
+                regs = func(regs);
+            }
+            console.log("Got "+e.name + ": " + regs)
        
-	    if (regs[0] != e.value) 
-            {	
-//		if (e.convert != null)
-			regs[0] = e.convert(regs[0])
-
-
-                e.value = regs[0];
-                var dbstring = JSON.stringify(e);
-                //тут сделать запись объекта
-                connection.query("INSERT INTO `mb_parameters` (`name`, `jsobject`) values (?, ?)", [e.name, dbstring], function (error, results, fields) {
-                  // error will be an Error if one occurred during the query
-                  // results will contain the results of the query
-                  // fields will contain information about the returned results fields (if any)
-                  if (error)
-                  {
-                    console.log("ERROR WRITING:" + results);
-                  }
-
-                  //send modbus update signal via dbus
-                  //teko_dbus.emit('testsignal', Date.now(), 'param2');
-
-                });
+            if (regs != e.value) 
+            {   
+                e.value = regs;
+                dirty = true;
             }
         } catch (err) 
         {
-            //console.log(err);
+            console.log(err);
         }
     });
     
+    if (dirty)
+    {
+        var sql = 'INSERT INTO `mb_parameters` (';
+        // задаем колонки для параметров
+        for(var i = 0; i<obj.input.values.length-1; i++)
+            sql += obj.input.values[i].name + ', ';    
+        sql += obj.input.values[obj.input.values.length-1].name + ') values (';
+        for(var i = 0; i<obj.input.values.length-1; i++)
+            sql += obj.input.values[i].value + ', ';
+
+        sql += obj.input.values[obj.input.values.length-1].value + ')';
+
+        connection.query(sql, function(err){
+            if (err)
+            {
+                console.log('error mysql parameters insertation: ' + err.stack);
+            }
+        });
+        dirty = false;
+
+        teko_dbus.emit('update', Date.now(), 'parameters update');
+    }
+
     //пока обновляем все вместе
     sleep(100, update_parameters);
 }
