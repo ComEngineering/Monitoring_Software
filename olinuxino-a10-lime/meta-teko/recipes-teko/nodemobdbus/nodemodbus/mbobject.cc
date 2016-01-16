@@ -3,6 +3,7 @@
 #include "errno.h"
 #include "stdio.h"
 #include <string.h>
+#include <vector>
 
 namespace demo {
 
@@ -104,7 +105,7 @@ void MbObject::Connect(NODE_ARGS args) {
 void MbObject::ReadRegisters(NODE_ARGS args)
 {
     int rc, i;
-    uint16_t tab_reg[64];
+    std::vector<uint16_t> v(1);
     Isolate* isolate = args.GetIsolate();
     Local<Array> result_list = Array::New(isolate);
     MbObject* obj = ObjectWrap::Unwrap<MbObject>(args.Holder());
@@ -121,8 +122,10 @@ void MbObject::ReadRegisters(NODE_ARGS args)
     }
     
     modbus_set_slave(obj->ctx, args[0]->NumberValue());
+    
+    v.resize(args[2]->NumberValue());
 
-    rc = modbus_read_registers(obj->ctx, args[1]->NumberValue(), args[2]->NumberValue(), tab_reg);
+    rc = modbus_read_registers(obj->ctx, args[1]->NumberValue(), args[2]->NumberValue(), v.data());
     if (rc == -1) {
         isolate->ThrowException(v8::Exception::Error(
              String::NewFromUtf8(isolate, modbus_strerror(errno))));
@@ -131,7 +134,7 @@ void MbObject::ReadRegisters(NODE_ARGS args)
 
     //заворачиваем в массив nodejs 
     for (i=0; i < rc; i++) {
-        result_list->Set(i, Number::New(isolate, tab_reg[i]));
+        result_list->Set(i, Number::New(isolate, v.data()[i]));
     }
     args.GetReturnValue().Set(result_list);
 }
