@@ -14,15 +14,20 @@ inherit npm
 DEPENDS = "nodejs nodemodbus node-mysql"
 
 SRC_URI = "file://noderequester.js \
-file://example.mb_conf.js"
+file://example.mb_conf.js \
+file://run.sh"
 
 S = "${WORKDIR}"
 
 do_install() {
     install -D -m 0755 ${S}/noderequester.js ${D}/opt/noderequester.js
+    install -D -m 0755 ${S}/example.mb_conf.js ${D}/opt/example.mb_conf.js
+    install -D -m 0755 ${S}/run.sh ${D}/opt/run.sh
 }
 
 FILES_${PN} += "/opt/noderequester.js"
+FILES_${PN} += "/opt/example.mb_conf.js"
+FILES_${PN} += "/opt/run.sh"
 
 # Prevents do_package failures with:
 # debugsources.list: No such file or directory:
