@@ -8,6 +8,10 @@ node-mysql \
 node-snmpjs \
 node-dbus \
 mariadb \
+noderequester \
+dbus \
+cronie \
+openssh-sshd \
 ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_LINGUAS = " "
