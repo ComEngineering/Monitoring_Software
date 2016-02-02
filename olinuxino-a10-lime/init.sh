@@ -1,12 +1,27 @@
 #!/bin/sh
 # Initializing script for starting TEKO monitoring development.
 
+if [ ! -d "./poky" ]; then
+  git clone -b fido git://git.yoctoproject.org/poky.git
+fi
 
-git clone -b fido git://git.yoctoproject.org/poky.git
 cd poky
-git clone -b fido https://github.com/linux-sunxi/meta-sunxi.git
-git clone https://git.congatec.com/yocto/meta-openembedded.git
-git clone https://github.com/imyller/meta-nodejs.git
 
+if [ ! -d "./meta-sunxi" ]; then
+  git clone -b fido https://github.com/linux-sunxi/meta-sunxi.git
+fi
+
+if [ ! -d "./meta-openembedded" ]; then
+  git clone https://git.congatec.com/yocto/meta-openembedded.git
+fi
+
+if [ ! -d "./meta-nodejs" ]; then
+  git clone https://github.com/imyller/meta-nodejs.git
+fi
+
+cp ./../meta-teko/.templateconf.sample ./.templateconf
 . ./oe-init-build-env 
-MACHINE=olinuxino-a10lime
+
+echo "**********************************************************"
+echo "*   For building TEKO image -> bitbake core-image-teko   *"
+echo "**********************************************************"

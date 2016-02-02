@@ -5,9 +5,11 @@ libmodbus \
 nodejs \
 nodemodbus \
 node-mysql \
-node-snmpjs \
-node-dbus \
 mariadb \
+cronie \
+openssh-sshd \
+express \
+monitoring-server \
 ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_LINGUAS = " "

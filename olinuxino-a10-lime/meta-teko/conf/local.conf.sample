@@ -1,0 +1,41 @@
+#
+MACHINE  ?= "olinuxino-a10lime"
+MACHINE ??= "qemux86"
+TMPDIR = "${TOPDIR}/tmp"
+
+DISTRO ?= "poky"
+PACKAGE_CLASSES ?= "package_ipk"
+
+SDKMACHINE ?= "i686"
+
+# There are other application targets that can be used here too, see
+# meta/classes/image.bbclass and meta/classes/core-image.bbclass for more details.
+EXTRA_IMAGE_FEATURES = "debug-tweaks ssh-server-openssh tools-sdk"
+
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K" 
+
+#SSTATE_MIRRORS ?= "\
+#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+#file://.* file:///some/local/dir/sstate/PATH"
+
+PACKAGECONFIG_append_pn-qemu-native = " sdl"
+PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ASSUME_PROVIDED += "libsdl-native"
+
+CONF_VERSION = "1"
+PREFERRED_PROVIDER_u-boot="u-boot-sunxi" PREFERRED_PROVIDER_virtual/bootloader="u-boot-sunxi" 
+PREFERRED_PROVIDER_virtual/kernel="linux-sunxi"
+PREFERRED_PROVIDER_node = "nodejs"
+PREFERRED_PROVIDER_node-native = "nodejs-native"
+PREFERRED_PROVIDER_jpeg = "jpeg"
+PREFERRED_PROVIDER_jpeg-native = "jpeg-native"
