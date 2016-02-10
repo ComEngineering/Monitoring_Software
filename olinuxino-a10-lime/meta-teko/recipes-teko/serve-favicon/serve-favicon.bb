@@ -1,4 +1,4 @@
-DESCRIPTION = "Node.js express framework"
+DESCRIPTION = "Node.js serve-favicon framework"
 HOMEPAGE = "http://expressjs.com/"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
@@ -8,17 +8,15 @@ DEPENDS = "nodejs-native nodejs"
 
 S = "${WORKDIR}/git"
 
-SRC_URI = "git://github.com/strongloop/express.git;protocol=git;branch=master;rev=60f8e77d66563757a85e489fd2966d9bac3a84d8"
+SRC_URI = "git://github.com/expressjs/serve-favicon.git;protocol=git;branch=master;rev=8be7f2fd0ea7e17ae6735f8247694276b3766fda"
 
 do_install () {
     export npm_config_prefix=${D}${prefix}
     export TMPDIR=${T}
     npm install -g
-    cd ${D}/usr/lib/node_modules/express/
-    npm install
 }
 
-FILES_${PN} += "${libdir}/node_modules/express/"
+FILES_${PN} += "${libdir}/node_modules/serve-favicon/"
 FILES_${PN} += "/usr/etc/"
 FILES_${PN} += "/usr/"
 

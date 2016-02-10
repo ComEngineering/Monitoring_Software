@@ -9,6 +9,7 @@ mariadb \
 cronie \
 openssh-sshd \
 express \
+serve-favicon \
 monitoring-server \
 ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 

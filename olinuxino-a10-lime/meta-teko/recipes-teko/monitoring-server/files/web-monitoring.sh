@@ -2,13 +2,14 @@
 # Provides:          web-monitoring
 # Description:       TEKO web monitoring server
 
-SCRIPT="/usr/local/bin/node /usr/web-monitoring/app.js"
+SCRIPT="node /usr/web-monitoring/bin/www"
 RUNAS=root
-PIDFILE=/var/run/<NAME>.pid
+PIDFILE=/var/run/web-monitoring.pid
 LOGFILE=/var/log/web-monitoring.log
 
 start() {
-  if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then
+  export NODE_PATH="/usr/lib/node_modules:/usr/lib/node_modules/express/node_modules"
+  if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
     echo 'Service already running' >&2
     return 1
   fi
@@ -40,5 +41,5 @@ case "$1" in
     start
     ;;
   *)
-    echo "Usage: $0 {start|stop|restart|uninstall}"
+    echo "Usage: $0 {start|stop|restart}"
 esac
