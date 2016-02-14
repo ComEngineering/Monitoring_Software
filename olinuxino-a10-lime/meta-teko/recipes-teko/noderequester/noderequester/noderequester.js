@@ -66,7 +66,7 @@ function main()
 {
     try {
         //пробуем загрузить файл с описанием устройств
-        obj = JSON.parse(fs.readFileSync('/opt/example.mb_conf.js', 'utf8'));
+        obj = JSON.parse(fs.readFileSync('/opt/mb_conf.js', 'utf8'));
     } catch (e) {
         console.log(e);
         process.exit(1);
