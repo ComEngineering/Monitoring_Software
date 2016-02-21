@@ -11,6 +11,9 @@ openssh-sshd \
 express \
 serve-favicon \
 monitoring-server \
+node-passport \
+node-passport-local \
+node-connect-flash \
 ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_LINGUAS = " "

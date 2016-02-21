@@ -5,7 +5,8 @@ PRIORITY = "optional"
 LICENSE = "MIT"
 PR = "r0"
  
-SRC_URI = "git://github.com/TECOLTD/Monitoring_WEB.git;protocol=git;branch=master;rev=45eddfdc2866c6b4824301831e931f735fea91bd \
+SRCREV = "cf103eda19e3449422094428f0ac89a01976fb79"
+SRC_URI = "git://github.com/TECOLTD/Monitoring_WEB.git;protocol=git;branch=master \
            file://web-monitoring.sh \
      "
 S = "${WORKDIR}/git"
@@ -18,6 +19,7 @@ INITSCRIPT_PARAMS = "defaults 24 76"
 inherit update-rc.d
 
 MONITORING_DIR = "usr/web-monitoring"
+BOOTSTRAP = "bootstrap-3.3.6-dist"
 
 FILES_${PN} += "${MONITORING_DIR}"
 
@@ -30,14 +32,21 @@ do_install() {
     install -d ${D}/${MONITORING_DIR}/bin/
     install -d ${D}/${MONITORING_DIR}/public/
     install -d ${D}/${MONITORING_DIR}/public/stylesheets/
+    install -d ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/
+    install -d ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/css/
+    install -d ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/js/
+    install -d ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/fonts/
     install -d ${D}/${MONITORING_DIR}/routes/
     install -d ${D}/${MONITORING_DIR}/views/
 
-    install -m0644 ${S}/server-application/app.js               ${D}/${MONITORING_DIR}/app.js
-    install -m0644 ${S}/server-application/package.json         ${D}/${MONITORING_DIR}/package.json
-    install -m0644 ${S}/server-application/bin/www              ${D}/${MONITORING_DIR}/bin/www
-    install -m0644 ${S}/server-application/public/stylesheets/style.css ${D}/${MONITORING_DIR}/public/stylesheets/style.css
-    install -m0644 ${S}/server-application/routes/index.js      ${D}/${MONITORING_DIR}/routes/index.js
-    install -m0644 ${S}/server-application/routes/users.js      ${D}/${MONITORING_DIR}/routes/users.js
-    install -m0644 ${S}/server-application/views/*              ${D}/${MONITORING_DIR}/views/
+    install -m0644 ${S}/server-application/app.js                      ${D}/${MONITORING_DIR}/app.js
+    install -m0644 ${S}/server-application/userBase.js                 ${D}/${MONITORING_DIR}/userBase.js
+    install -m0644 ${S}/server-application/package.json                ${D}/${MONITORING_DIR}/package.json
+    install -m0644 ${S}/server-application/bin/www                     ${D}/${MONITORING_DIR}/bin/www
+    install -m0644 ${S}/server-application/public/stylesheets/*        ${D}/${MONITORING_DIR}/public/stylesheets/
+    install -m0644 ${S}/server-application/public/${BOOTSTRAP}/css/*   ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/css/
+    install -m0644 ${S}/server-application/public/${BOOTSTRAP}/js/*    ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/js/
+    install -m0644 ${S}/server-application/public/${BOOTSTRAP}/fonts/* ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/fonts/
+    install -m0644 ${S}/server-application/routes/*                    ${D}/${MONITORING_DIR}/routes/
+    install -m0644 ${S}/server-application/views/*                     ${D}/${MONITORING_DIR}/views/
 }
