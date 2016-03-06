@@ -8,10 +8,11 @@
         "values": [
             {
                 "description": "Слово состояния",
-                "name": "mb_state ",
+                "name": "mb_state",
                 "sql_type": "INTEGER",
                 "addr": 127,
                 "reg": 0,
+		"oid": ".1.3.6.1.2.1.1.5",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -24,6 +25,7 @@
                 "addr": 127, 
                 "reg": 1,
                 "convert":"function(x){return (((x[0]<<16)>>0)>>16)/10;}",
+		"oid": ".1.3.6.1.2.1.1.6",
                 "intervals": {
                     "min": 10,
                     "max": 100
@@ -36,6 +38,7 @@
                 "addr": 127,
                 "reg": 2,
                 "convert":"function(x){return (((x[0]<<16)>>0)>>16)/10;}",
+		"oid": ".1.3.6.1.2.1.1.7",
                 "intervals": {
                     "min": 100,
                     "max": 2000
@@ -47,6 +50,7 @@
                 "sql_type": "INTEGER",                          
 		"addr": 127,
                 "reg": 3,
+		"oid": ".1.3.6.1.2.1.1.8",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -58,6 +62,7 @@
                 "sql_type": "INTEGER",                          
 		"addr": 127,
                 "reg": 4,
+		"oid": ".1.3.6.1.2.1.1.9",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -69,6 +74,7 @@
                 "sql_type": "INTEGER",
 		"addr": 127,
                 "reg": 5,
+		"oid": ".1.3.6.1.2.1.1.10",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -80,6 +86,7 @@
                 "sql_type": "INTEGER",
 		"addr": 127,
                 "reg": 6,
+		"oid": ".1.3.6.1.2.1.1.11",
                 "intervals": {
                     "min": 0,
                     "max": 65535
