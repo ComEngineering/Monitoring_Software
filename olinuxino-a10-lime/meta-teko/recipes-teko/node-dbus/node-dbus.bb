@@ -10,6 +10,8 @@ S = "${WORKDIR}/git"
 
 SRC_URI = "git://github.com/sidorares/node-dbus;protocol=git;branch=master;rev=516bf5337b6d1df0193607af8e8e42f33600fa85"
 
+INSANE_SKIP_${PN} = "arch"
+
 do_install () {
     export LD="${CXX}"
     export GYP_DEFINES="sysroot=${STAGING_DIR_HOST}"

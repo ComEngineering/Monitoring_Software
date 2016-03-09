@@ -5,6 +5,7 @@ libmodbus \
 nodejs \
 nodemodbus \
 node-mysql \
+node-dbus \
 mariadb \
 cronie \
 openssh-sshd \
