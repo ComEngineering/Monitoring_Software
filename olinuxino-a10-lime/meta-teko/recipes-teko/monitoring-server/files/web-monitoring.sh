@@ -36,7 +36,7 @@ case "$1" in
   stop)
     stop
     ;;
-  retart)
+  restart)
     stop
     start
     ;;
