@@ -1,5 +1,5 @@
-DESCRIPTION = "Node.js dbus lib"
-HOMEPAGE = "https://github.com/sidorares/node-dbus"
+DESCRIPTION = "Node.js express framework"
+HOMEPAGE = "http://expressjs.com/"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
@@ -8,21 +8,17 @@ DEPENDS = "nodejs-native nodejs"
 
 S = "${WORKDIR}/git"
 
-SRC_URI = "git://github.com/sidorares/node-dbus;protocol=git;branch=master;rev=516bf5337b6d1df0193607af8e8e42f33600fa85"
-
-INSANE_SKIP_${PN} = "arch"
+SRC_URI = "git://github.com/strongloop/express.git;protocol=git;branch=master;rev=60f8e77d66563757a85e489fd2966d9bac3a84d8"
 
 do_install () {
-    export LD="${CXX}"
-    export GYP_DEFINES="sysroot=${STAGING_DIR_HOST}"
-
-    export npm_config_arch=${TARGET_ARCH}
     export npm_config_prefix=${D}${prefix}
     export TMPDIR=${T}
     npm install -g
+    cd ${D}/usr/lib/node_modules/express/
+    npm install
 }
 
-FILES_${PN} += "${libdir}/node_modules/dbus/"
+FILES_${PN} += "${libdir}/node_modules/express/"
 FILES_${PN} += "/usr/etc/"
 FILES_${PN} += "/usr/"
 

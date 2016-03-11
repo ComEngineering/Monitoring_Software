@@ -1,5 +1,5 @@
-DESCRIPTION = "Node.js dbus lib"
-HOMEPAGE = "https://github.com/sidorares/node-dbus"
+DESCRIPTION = "i18n for node with deep level objects"
+HOMEPAGE = "https://github.com/larafale/node-i18n.git"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
@@ -8,21 +8,15 @@ DEPENDS = "nodejs-native nodejs"
 
 S = "${WORKDIR}/git"
 
-SRC_URI = "git://github.com/sidorares/node-dbus;protocol=git;branch=master;rev=516bf5337b6d1df0193607af8e8e42f33600fa85"
-
-INSANE_SKIP_${PN} = "arch"
+SRC_URI = "git://github.com/larafale/node-i18n.git;protocol=git;branch=master;rev=4790750928cb407cafb2fb81bb781626d886231f"
 
 do_install () {
-    export LD="${CXX}"
-    export GYP_DEFINES="sysroot=${STAGING_DIR_HOST}"
-
-    export npm_config_arch=${TARGET_ARCH}
     export npm_config_prefix=${D}${prefix}
     export TMPDIR=${T}
     npm install -g
 }
 
-FILES_${PN} += "${libdir}/node_modules/dbus/"
+FILES_${PN} += "${libdir}/node_modules/node-i18n/"
 FILES_${PN} += "/usr/etc/"
 FILES_${PN} += "/usr/"
 

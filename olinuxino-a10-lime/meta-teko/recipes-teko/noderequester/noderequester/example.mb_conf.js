@@ -1,10 +1,22 @@
 {
     "vendor": "TEKO",
-    "product": "MB",
-    "version": "0.01",
+    "product": "SM-I0",
+    "version": "1.0.1",
     "poll_interval": 100,
+    "baudrate": 9600,
     "input": {
         "values": [
+            {
+                "description": "Слово состояния",
+                "name": "mb_state ",
+                "sql_type": "INTEGER",
+                "addr": 127,
+                "reg": 0,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
+            },
             {
                 "description": "Температура 1",
                 "name": "mb_t1",
@@ -28,8 +40,76 @@
                     "min": 100,
                     "max": 2000
                 }
+            },
+            {
+                "description": "Аналоговый вход ADC1",
+                "name": "mb_adc_value_1",
+                "sql_type": "INTEGER",                          
+		"addr": 127,
+                "reg": 3,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
+            },
+            {
+                "description": "Аналоговый вход ADC2",
+                "name": "mb_adc_value_2",
+                "sql_type": "INTEGER",                          
+		"addr": 127,
+                "reg": 4,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
+            },
+            {
+                "description": "Дискретные входы",
+                "name": "mb_digital_inputs_value",
+                "sql_type": "INTEGER",
+		"addr": 127,
+                "reg": 5,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
+            },
+            {
+                "description": "Входы сухих контактов",
+                "name": "mb_dry_contact_value",
+                "sql_type": "INTEGER",
+		"addr": 127,
+                "reg": 6,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
             }
         ],
         "script": "function(){}"
+    },
+    "output": {
+        "values": [
+            {
+                "description": "Выхода сигнальных сухих контактов SDCO",
+                "name": "mb_dry_contact_output_value",
+                "addr": 127,
+                "reg": 22,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
+            },
+            {
+                "description": "Выхода силовых сухих контактов PDCO",
+                "name": "mb_power_contact_output_value",
+                "addr": 127,
+                "reg": 23,
+                "intervals": {
+                    "min": 0,
+                    "max": 65535
+                }
+            }
+        ]
     }
 }

@@ -39,8 +39,8 @@ var teko_dbus = {
         console.log('signal emit', name, param1, param2);
     }
 };
-bus.exportInterface(teko_dbus, '/com/teko/modbus', tekoIface);
 
+bus.exportInterface(teko_dbus, '/com/teko/modbus', tekoIface);
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -62,11 +62,10 @@ connection.connect(function(err) {
     main();
     });
 
-function main()
-{
+function main() {
     try {
         //пробуем загрузить файл с описанием устройств
-        obj = JSON.parse(fs.readFileSync('/opt/example.mb_conf.js', 'utf8'));
+        obj = JSON.parse(fs.readFileSync('/opt/mb_conf.js', 'utf8'));
     } catch (e) {
         console.log(e);
         process.exit(1);
@@ -84,9 +83,8 @@ function main()
     });
     sql += 'PRIMARY KEY(`id`))';
 
-    connection.query(sql, function(err){
-        if (err)
-        {
+    connection.query(sql, function(err) {
+        if (err) {
             console.log('error mysql initialisation: ' + err.stack);
             process.exit(1);
         }
@@ -95,20 +93,18 @@ function main()
 }
 
 //создаем модбас соединение
-function init_mb_req()
-{
+function init_mb_req() {
     console.log("Initialising mb_requsting ...");
 
     try {
         mb = new modbus.MbObject();
         mb.Connect("/dev/ttyS1", 9600, 1);
-    } catch(e) 
-    {
+    } catch(e) {
         console.log(e);
         process.exit(1);
     }
 
-    obj.input.values.forEach(function(e){
+    obj.input.values.forEach(function(e) {
         e.value = 0;
     });
 
@@ -119,35 +115,30 @@ function init_mb_req()
 }
 
 //функция чтения/записи параметров
-function update_parameters()
-{
+function update_parameters() {
     var dirty = false;
-    
-    obj.input.values.forEach(function(e){
+
+    obj.input.values.forEach(function(e) {
         //тут обмен с устройствами и запись в базу данных
         console.log(e.description);
-        try{
+        try {
             var regs = mb.ReadRegisters(e.addr, e.reg, 1);
-            if (e.convert != null)
-            {                                          
+            if (e.convert != null) {
                 var func = new Function('return ' + e.convert)();
                 regs = func(regs);
             }
-            console.log("Got "+e.name + ": " + regs)
-       
-            if (regs != e.value) 
-            {   
+            console.log("Got " + e.name + ": " + regs)
+
+            if (regs != e.value) {
                 e.value = regs;
                 dirty = true;
             }
-        } catch (err) 
-        {
+        } catch (err) {
             console.log(err);
         }
     });
-    
-    if (dirty)
-    {
+
+    if (dirty) {
         var sql = 'INSERT INTO `mb_parameters` (';
         // задаем колонки для параметров
         for(var i = 0; i<obj.input.values.length-1; i++)
@@ -158,9 +149,8 @@ function update_parameters()
 
         sql += obj.input.values[obj.input.values.length-1].value + ')';
 
-        connection.query(sql, function(err){
-            if (err)
-            {
+        connection.query(sql, function(err) {
+            if (err) {
                 console.log('error mysql parameters insertation: ' + err.stack);
             }
         });
@@ -174,7 +164,7 @@ function update_parameters()
 }
 
 //обертка для вызова функции по таймеру
-function sleep(ms, callback){
+function sleep(ms, callback) {
    setTimeout(function(){callback();}, ms);
 }
 

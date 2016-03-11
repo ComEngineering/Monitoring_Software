@@ -1,28 +1,22 @@
-DESCRIPTION = "Node.js dbus lib"
-HOMEPAGE = "https://github.com/sidorares/node-dbus"
+DESCRIPTION = "Node.js addition module for node passportjs framework"
+HOMEPAGE = "http://passportjs.org"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 inherit npm
-DEPENDS = "nodejs-native nodejs"
+DEPENDS = "node-passport"
 
 S = "${WORKDIR}/git"
 
-SRC_URI = "git://github.com/sidorares/node-dbus;protocol=git;branch=master;rev=516bf5337b6d1df0193607af8e8e42f33600fa85"
-
-INSANE_SKIP_${PN} = "arch"
+SRC_URI = "git://github.com/jaredhanson/passport-local.git;branch=master;rev=c5a349b1fce71c51d66f78f8fc3e3861444b9a04"
 
 do_install () {
-    export LD="${CXX}"
-    export GYP_DEFINES="sysroot=${STAGING_DIR_HOST}"
-
-    export npm_config_arch=${TARGET_ARCH}
     export npm_config_prefix=${D}${prefix}
     export TMPDIR=${T}
     npm install -g
 }
 
-FILES_${PN} += "${libdir}/node_modules/dbus/"
+FILES_${PN} += "${libdir}/node_modules/passport-local/"
 FILES_${PN} += "/usr/etc/"
 FILES_${PN} += "/usr/"
 
