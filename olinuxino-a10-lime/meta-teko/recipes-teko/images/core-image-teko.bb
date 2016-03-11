@@ -17,6 +17,7 @@ node-passport-local \
 node-connect-flash \
 node-socket-io \
 node-i18n \
+noderequester \
 ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_LINGUAS = " "
