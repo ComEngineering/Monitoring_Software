@@ -9,7 +9,6 @@ node-dbus \
 mariadb \
 cronie \
 openssh-sshd \
-express \
 serve-favicon \
 monitoring-server \
 node-passport \

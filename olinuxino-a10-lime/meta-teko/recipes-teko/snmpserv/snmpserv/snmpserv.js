@@ -7,6 +7,7 @@ var parameters_values;
  
 // snmp server test read command
 // snmpget -v 2c -c any localhost:8161 .1.3.6.1.2.1.1.5.0
+// snmpset -v 2c -c any localhost:8161 .1.3.6.1.2.1.1.5.0 s 123
 var agent = snmp.createAgent();
 
 var connection = mysql.createConnection({
@@ -28,8 +29,7 @@ connection.connect(function(err) {
 });
  
  
-function main()
-{
+function main() {
     try {
         //пробуем загрузить файл с описанием устройств
         obj = JSON.parse(fs.readFileSync('/opt/mb_conf.js', 'utf8'));
@@ -42,8 +42,7 @@ function main()
 	// initial values select
     var sql = "SELECT * FROM `mb_parameters` ORDER BY `id` DESC LIMIT 1";
     connection.query(sql, function(err, rows){
-        if (err)
-        {
+        if (err) {
             console.log('error mysql parameters update: ' + err.stack);
             return;
         }
@@ -53,11 +52,19 @@ function main()
 			console.log(e.oid + " : " + parameters_values[e.name]);
 			//register snmp request handlers for input registers
 			agent.request({ oid: e.oid, handler: function (prq) {
-				var nodename = parameters_values[e.name].toString();
-				var val = snmp.data.createData({ type: 'OctetString',
-				    value: nodename });
-		 
-				snmp.provider.readOnlyScalar(prq, val);
+	
+				//console.log(prq.value.value.toString());
+				if (prq.op == 0)
+				{
+
+					var nodename = parameters_values[e.name].toString();
+					var val = snmp.data.createData({ type: 'OctetString',
+					    value: nodename });
+			 	} else {
+					var val = prq.value;
+				}
+				//snmp.provider.readOnlyScalar(prq, val);
+				snmp.provider.writableScalar(prq, val);
 			} });
 
 		});
