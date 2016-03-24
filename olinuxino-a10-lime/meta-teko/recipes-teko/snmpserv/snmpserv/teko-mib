@@ -1,0 +1,101 @@
+TECO-CONTROL-SYSTEM-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	NOTIFICATION-TYPE, OBJECT-TYPE, MODULE-IDENTITY, 
+	enterprises, Integer32, Unsigned32 FROM SNMPv2-SMI
+	TEXTUAL-CONVENTION                 FROM SNMPv2-TC;
+
+teco MODULE-IDENTITY
+	LAST-UPDATED "200811010000Z"
+	ORGANIZATION 
+		"TECO"
+	CONTACT-INFO 
+		"support@teco.com.ua"
+	DESCRIPTION 
+		"TECO monitoring units"
+::= { enterprises 39052 }
+
+ctlRdOnlyValues      OBJECT IDENTIFIER ::= { teco 1 }
+ctlRdWrValues        OBJECT IDENTIFIER ::= { teco 2 }
+
+ctlUnitModuleId  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Id of module"
+	::= { ctlRdOnlyValues 1 }
+	
+	
+myDisplayTemperature ::= TEXTUAL-CONVENTION
+	DISPLAY-HINT "d-1"
+	STATUS current
+	DESCRIPTION "" 
+	SYNTAX Integer32(0..65535)
+
+ctlUnitModuleTemperature1  OBJECT-TYPE
+	SYNTAX     myDisplayTemperature
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Temperature of module"
+	::= { ctlRdOnlyValues 2 }
+	
+ctlUnitModuleTemperature2  OBJECT-TYPE
+	SYNTAX     myDisplayTemperature
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Temperature of module"
+	::= { ctlRdOnlyValues 3 }
+	
+ctlUnitModuleADC1  OBJECT-TYPE
+	SYNTAX     Unsigned32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"ADC1 input value"
+	::= { ctlRdOnlyValues 4 }
+	
+ctlUnitModuleADC2  OBJECT-TYPE
+	SYNTAX     Unsigned32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"ADC2 input value"
+	::= { ctlRdOnlyValues 5 }
+	
+ctlUnitModuleDigitalInputs  OBJECT-TYPE
+	SYNTAX     Unsigned32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Digital inputs value"
+	::= { ctlRdOnlyValues 6 }
+
+ctlUnitModuleDryContacts  OBJECT-TYPE
+	SYNTAX     Unsigned32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Dry contacts value"
+	::= { ctlRdOnlyValues 7 }
+	
+	
+ctlUnitDryContactsOutput  OBJECT-TYPE
+	SYNTAX     Unsigned32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Values of output dry contacts"
+	::= { ctlRdWrValues 1 }
+	
+ctlUnitPowerContactsOutput  OBJECT-TYPE
+	SYNTAX     Unsigned32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Values of output power contacts"
+	::= { ctlRdWrValues 2 }
+	
+END
