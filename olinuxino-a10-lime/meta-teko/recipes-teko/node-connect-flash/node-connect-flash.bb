@@ -11,13 +11,12 @@ S = "${WORKDIR}/git"
 SRC_URI = "git://github.com/jaredhanson/connect-flash.git;protocol=git;branch=master;rev=702d7ad99c95c539531056fe31d8cda7d5906a9b"
 
 do_compile_prepend () {
-    rm ${WORKDIR}/git/Makefile
+    rm -f ${WORKDIR}/git/Makefile
 }
 
 do_install () {
     export npm_config_prefix=${D}${prefix}
     export TMPDIR=${T}
-    rm -f ${WORKDIR}/git/Makefile
     npm install -g
 }
 

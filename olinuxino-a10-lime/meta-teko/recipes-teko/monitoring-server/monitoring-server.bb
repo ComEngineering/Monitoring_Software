@@ -18,7 +18,7 @@ INITSCRIPT_PARAMS = "defaults 24 76"
 
 inherit update-rc.d
 
-MONITORING_DIR = "usr/web-monitoring"
+MONITORING_DIR ?= "usr/web-monitoring"
 BOOTSTRAP = "bootstrap-3.3.6-dist"
 
 FILES_${PN} += "${MONITORING_DIR}"
