@@ -27,6 +27,18 @@ connection.connect(function(err) {
  
     main();
 });
+
+function get_parameter_value(param) {
+    var v = parameters_values[param.name];
+    switch (param.sql_type)
+    {
+        case "FLOAT":
+            // convert float number to integer with 3 digits in fractional part
+            v = parseInt(v*1000);
+        break;
+    }
+    return snmp.data.createData({ type: 'Integer', value: v });;
+}
  
  
 function main() {
@@ -39,7 +51,7 @@ function main() {
     }
  
     connection.query('USE teko');
-	// initial values select
+    // initial values select
     var sql = "SELECT * FROM `mb_parameters` ORDER BY `id` DESC LIMIT 1";
     connection.query(sql, function(err, rows){
         if (err) {
@@ -48,28 +60,17 @@ function main() {
         }
         parameters_values = rows[0];
 
-		obj.input.values.forEach(function(e){
-			console.log(e.oid + " : " + parameters_values[e.name]);
-			//register snmp request handlers for input registers
-			agent.request({ oid: e.oid, handler: function (prq) {
-	
-				//console.log(prq.value.value.toString());
-				if (prq.op == 0)
-				{
+        obj.input.values.forEach(function(e) {
+            console.log(e.oid + " : " + parameters_values[e.name]);
+            //register snmp request handlers for input registers
+            agent.request({ oid: e.oid, handler: function (prq) {
+                var v = get_parameter_value(e);
+                snmp.provider.readOnlyScalar(prq, v);
+            } });
 
-					var nodename = parameters_values[e.name].toString();
-					var val = snmp.data.createData({ type: 'OctetString',
-					    value: nodename });
-			 	} else {
-					var val = prq.value;
-				}
-				//snmp.provider.readOnlyScalar(prq, val);
-				snmp.provider.writableScalar(prq, val);
-			} });
-
-		});
-	 
-		agent.bind({ family: 'udp4', port: 8161 });
+        });
+     
+        agent.bind({ family: 'udp4', port: 8161 });
 
     }); 
  
@@ -98,5 +99,5 @@ function main() {
         });
  
     });
-	*/
+    */
 }
