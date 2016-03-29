@@ -2,7 +2,8 @@ var dbus = require('dbus-native');
 var snmp = require('snmpjs');
 var mysql = require('mysql');
 var fs = require('fs');
- 
+var extend = require('util')._extend;
+
 var parameters_values;
  
 // snmp server test read command
@@ -39,6 +40,10 @@ function get_parameter_value(param) {
     }
     return snmp.data.createData({ type: 'Integer', value: v });;
 }
+
+function set_parameter_value(param, value) {
+    parameters_values[param.name] = value;
+}
  
  
 function main() {
@@ -60,14 +65,39 @@ function main() {
         }
         parameters_values = rows[0];
 
+        //input mb registers
         obj.input.values.forEach(function(e) {
-            console.log(e.oid + " : " + parameters_values[e.name]);
-            //register snmp request handlers for input registers
-            agent.request({ oid: e.oid, handler: function (prq) {
-                var v = get_parameter_value(e);
-                snmp.provider.readOnlyScalar(prq, v);
-            } });
+            if (e.oid != null) {
+                console.log(e.oid + " : " + parameters_values[e.name]);
+                //register snmp request handlers for input registers
+                agent.request({ oid: e.oid, handler: function (prq) {
+                    if (prq.op != 0) return;
+                    var v = get_parameter_value(e);
+                    snmp.provider.readOnlyScalar(prq, v);
+                } });
+            }
+        });
 
+        //output mb registers
+        obj.output.values.forEach(function(e) {
+            if (e.oid != null) {
+                //init with default value
+                set_parameter_value(e, 1);
+
+                console.log(e.oid + " : " + parameters_values[e.name]);
+                //register snmp request handlers for input registers
+                agent.request({ oid: e.oid, handler: function (prq) {
+                    // op = 3 for write
+                    if (prq.op != 3) {
+                        var v = get_parameter_value(e);
+                        console.log(v);
+                    } else {
+                        set_parameter_value(e, prq.value.value);
+                        var v = prq.value;
+                    }
+                    snmp.provider.writableScalar(prq, v);
+                }});
+            }
         });
      
         agent.bind({ family: 'udp4', port: 8161 });
@@ -75,12 +105,12 @@ function main() {
     }); 
  
     // dbus interfase
-    /*var sessionBus = dbus.sessionBus();
+    var sessionBus = dbus.sessionBus();
  
     sessionBus.getService('teko.modbus').getInterface(
         '/com/teko/modbus',
         'com.teko.modbus', function(err, notifications) {
- 
+        if (!err)
         // dbus signal that some Modbus parameters were updated
         notifications.on('update', function() {
             console.log('parameters update', arguments);
@@ -94,10 +124,10 @@ function main() {
                     return;
                 }
  
-                parameters_values = rows[0];
+                extend(parameters_values, rows[0]);
             });
         });
  
     });
-    */
+    
 }

@@ -8,12 +8,12 @@ IMPORTS
 teco MODULE-IDENTITY
 	LAST-UPDATED "200811010000Z"
 	ORGANIZATION 
-		"TECO"
+		"TECO Ltd"
 	CONTACT-INFO 
-		"support@teco.com.ua"
+		"tav@teco.com.ua"
 	DESCRIPTION 
 		"TECO monitoring units"
-::= { enterprises 39052 }
+::= { enterprises 47480 }
 
 ctlRdOnlyValues      OBJECT IDENTIFIER ::= { teco 1 }
 ctlRdWrValues        OBJECT IDENTIFIER ::= { teco 2 }
