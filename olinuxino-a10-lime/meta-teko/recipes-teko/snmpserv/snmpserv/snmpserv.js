@@ -14,8 +14,8 @@ var agent = snmp.createAgent();
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : 'drupal7IsGood',
-    socketPath: '/run/mysqld/mysqld.sock',
+    password : 'newpass',
+    socketPath: '/var/lib/mysql/mysql.sock',
 });
  
 connection.connect(function(err) {
@@ -100,7 +100,7 @@ function main() {
             }
         });
      
-        agent.bind({ family: 'udp4', port: 8161 });
+        agent.bind({ family: 'udp4', port: 161 });
 
     }); 
  
