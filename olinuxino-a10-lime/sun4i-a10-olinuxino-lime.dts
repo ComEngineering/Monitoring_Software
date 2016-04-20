@@ -681,6 +681,24 @@
 				phandle = <0x30>;
 			};
 
+			uart5@0 {
+				allwinner,pins = "PI10", "PI11";
+				allwinner,function = "uart5";
+				allwinner,drive = <0x0>;
+				allwinner,pull = <0x0>;
+				linux,phandle = <0x31>;
+				phandle = <0x31>;
+			};
+
+			uart6@0 {
+				allwinner,pins = "PI12", "PI13";
+				allwinner,function = "uart6";
+				allwinner,drive = <0x0>;
+				allwinner,pull = <0x0>;
+				linux,phandle = <0x32>;
+				phandle = <0x32>;
+			};
+
 			i2c0@0 {
 				allwinner,pins = "PB0", "PB1";
 				allwinner,function = "i2c0";
@@ -741,13 +759,6 @@
 			ir1@0 {
 				allwinner,pins = "PB22", "PB23";
 				allwinner,function = "ir1";
-				allwinner,drive = <0x0>;
-				allwinner,pull = <0x0>;
-			};
-
-			spi0@0 {
-				allwinner,pins = "PI10", "PI11", "PI12", "PI13";
-				allwinner,function = "spi0";
 				allwinner,drive = <0x0>;
 				allwinner,pull = <0x0>;
 			};
@@ -959,7 +970,10 @@
 			reg-shift = <0x2>;
 			reg-io-width = <0x4>;
 			clocks = <0x28 0x15>;
-			status = "disabled";
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <0x31>;
+
 		};
 
 		serial@01c29800 {
@@ -969,7 +983,9 @@
 			reg-shift = <0x2>;
 			reg-io-width = <0x4>;
 			clocks = <0x28 0x16>;
-			status = "disabled";
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <0x32>;
 		};
 
 		serial@01c29c00 {
@@ -1129,3 +1145,4 @@
 		};
 	};
 };
+
