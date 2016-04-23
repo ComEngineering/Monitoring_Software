@@ -4,10 +4,12 @@ SCRIPT="node /opt/noderequester.js"
 RUNAS=root
 PIDFILE=/var/run/noderequester.pid
 LOGFILE=/var/log/noderequester.log
+DBUS_SESSION_FILE=/var/run/dbus_session
 
 start() {
   export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
-  export $(dbus-launch)
+  dbus-launch > $DBUS_SESSION_FILE
+  source $DBUS_SESSION_FILE
   if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
     echo 'Service already running' >&2
     return 1

@@ -4,10 +4,11 @@ SCRIPT="node /opt/snmpserv.js"
 RUNAS=root
 PIDFILE=/var/run/snmpserv.pid
 LOGFILE=/var/log/snmpserv.log
+DBUS_SESSION_FILE=/var/run/dbus_session
 
 start() {
   export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
-  export $(dbus-launch)
+  source $DBUS_SESSION_FILE
   if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
     echo 'Service already running' >&2
     return 1
