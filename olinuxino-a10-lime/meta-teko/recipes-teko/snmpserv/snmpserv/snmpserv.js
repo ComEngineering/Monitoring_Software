@@ -10,6 +10,7 @@ var parameters_values;
 // snmpget -v 2c -c any localhost:8161 .1.3.6.1.2.1.1.5.0
 // snmpset -v 2c -c any localhost:8161 .1.3.6.1.2.1.1.5.0 s 123
 var agent = snmp.createAgent();
+var sessionBus = dbus.sessionBus();
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -43,6 +44,17 @@ function get_parameter_value(param) {
 
 function set_parameter_value(param, value) {
     parameters_values[param.name] = value;
+
+    sessionBus.invoke({ 
+        path: '/com/teko/modbus', 
+        destination: 'teko.modbus', 
+        'interface': 'com.teko.modbus', 
+        member: 'write', 
+        signature: 'iyai',
+        body: [param.addr, param.reg, [value]],
+    }, function(err, res) {
+        console.log(res);
+    });
 }
  
  
@@ -82,7 +94,7 @@ function main() {
         obj.output.values.forEach(function(e) {
             if (e.oid != null) {
                 //init with default value
-                set_parameter_value(e, 1);
+                set_parameter_value(e, e.default);
 
                 console.log(e.oid + " : " + parameters_values[e.name]);
                 //register snmp request handlers for input registers
@@ -104,9 +116,7 @@ function main() {
 
     }); 
  
-    // dbus interfase
-    var sessionBus = dbus.sessionBus();
- 
+    // dbus interfase 
     sessionBus.getService('teko.modbus').getInterface(
         '/com/teko/modbus',
         'com.teko.modbus', function(err, notifications) {
