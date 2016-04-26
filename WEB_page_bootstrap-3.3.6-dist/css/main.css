@@ -1,0 +1,24 @@
+#totop {
+  position: fixed;
+  bottom: 6%;
+  right: 1.5%;
+  display: none;
+  z-index: 9999;
+  background: transparent;
+  border: 3px solid #3C3C3C;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+}
+#totop i {
+  color: #3C3C3C;
+  line-height: 43px;
+  font-size: 33px;
+}
+#totop:hover {
+  background: #3C3C3C;
+}
+#totop:hover i {
+  color: #ffffff;
+}
