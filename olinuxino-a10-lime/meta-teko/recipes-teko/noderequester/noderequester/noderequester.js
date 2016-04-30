@@ -5,6 +5,30 @@ var dbus = require('dbus-native');
 
 var obj;
 var mb;
+var buses = [];
+
+function init_serial_buses() {
+    var config = {
+        "modbus": modbus.MbObject,
+        "pcomm": null
+    };
+
+    obj.buses.forEach(function(b) {
+        try {
+            console.log("Initialising bus " + b.name)
+            buses[b.name] = new config[b.type]();
+            buses[b.name].Connect(b.system_dev, b.baudrate, b.stopbits);
+        } catch (err) {
+            console.log("Error while " + b.name + " initialisation. " + err);
+        }
+    });
+}
+
+function is_reg_following(p_reg, reg)
+{
+    if (reg == null) return false;
+    return ((reg.type == "modbus") && (p_reg.bus == reg.bus) && (p_reg.addr == reg.addr) && (p_reg.reg + 1 == reg.reg));
+}
 
 var bus = dbus.sessionBus();
 var name = 'teko.modbus';
@@ -96,18 +120,11 @@ function main() {
 function init_mb_req() {
     console.log("Initialising mb_requsting ...");
 
-    try {
-        mb = new modbus.MbObject();
-        mb.Connect("/dev/ttyS1", 9600, 1);
-    } catch(e) {
-        console.log(e);
-        process.exit(1);
-    }
+    init_serial_buses();
 
     obj.input.values.forEach(function(e) {
         e.value = 0;
     });
-
 
     console.log("Starting parameters update ...");
     //начинаем читать параметры
@@ -118,25 +135,35 @@ function init_mb_req() {
 function update_parameters() {
     var dirty = false;
 
-    obj.input.values.forEach(function(e) {
-        //тут обмен с устройствами и запись в базу данных
-        console.log(e.description);
-        try {
-            var regs = mb.ReadRegisters(e.addr, e.reg, 1);
-            if (e.convert != null) {
-                var func = new Function('return ' + e.convert)();
-                regs = func(regs);
-            }
-            console.log("Got " + e.name + ": " + regs)
+    for (var i = 0; i < obj.input.values.length; i++) {
+        var register = obj.input.values[i];
+        var sequence_length = 0;
 
-            if (regs != e.value) {
-                e.value = regs;
-                dirty = true;
+        //search for the end of sequence
+        while (is_reg_following(obj.input.values[i + sequence_length], obj.input.values[i + sequence_length + 1]))
+            { sequence_length++; console.log('sequence: '+ sequence);}
+        
+        try {
+            var regs = buses[register.bus].ReadRegisters(register.addr, register.reg, sequence_length + 1);
+            for (var j = 0; j < sequence_length; j++) {
+                //TODO: check that link here works properly
+                var e = obj.input.values[i + j];
+                if (e.convert != null) {
+                    var func = new Function('return ' + e.convert)();
+                    regs[i + j] = func(regs[i + j], i + j);
+                }
+
+                if (regs[i + j] != e.value) {
+                    e.value = regs[i + j];
+                    dirty = true;
+                }
             }
         } catch (err) {
-            console.log(err);
+            console.log("Error while requesting " + reguster + ". " + err);
         }
-    });
+
+        i += sequence_length;
+    }
 
     if (dirty) {
         var sql = 'INSERT INTO `mb_parameters` (';
@@ -156,7 +183,7 @@ function update_parameters() {
         });
         dirty = false;
 
-        teko_dbus.emit('update', Date.now(), 'parameters update');
+        teko_dbus.emit('update', Math.floor(new Date() / 1000), 'parameters update');
     }
 
     //пока обновляем все вместе

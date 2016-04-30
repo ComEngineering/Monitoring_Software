@@ -2,8 +2,19 @@
     "vendor": "TEKO",
     "product": "SM-I0",
     "version": "1.0.1",
-    "poll_interval": 100,
-    "baudrate": 9600,
+    "buses": [{
+        "name": "modbus_internal",
+        "type": "modbus",
+        "system_dev": "/dev/ttyS2",
+        "baudrate": 9600,
+        "stopbits": 1
+    }, {
+        "name": "modbus_external",
+        "type": "modbus",
+        "system_dev": "/dev/ttyS1",
+        "baudrate": 9600,
+        "stopbits": 1
+    }],
     "input": {
         "values": [
             {
@@ -13,6 +24,8 @@
                 "addr": 127,
                 "reg": 0,
                 "oid": ".1.3.6.1.4.1.47480.1.1",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -26,6 +39,8 @@
                 "reg": 1,
                 "convert":"function(x){return (((x[0]<<16)>>0)>>16)/10;}",
                 "oid": ".1.3.6.1.4.1.47480.1.2",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 10,
                     "max": 100
@@ -39,33 +54,41 @@
                 "reg": 2,
                 "convert":"function(x){return (((x[0]<<16)>>0)>>16)/10;}",
                 "oid": ".1.3.6.1.4.1.47480.1.3",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 100,
                     "max": 2000
                 }
             },
             {
-                "description": "Аналоговый вход ADC1",
-                "name": "mb_adc_value_1",
-                "sql_type": "INTEGER",                          
+                "description": "Температура 3",
+                "name": "mb_t3",
+                "sql_type": "FLOAT",    
                 "addr": 127,
                 "reg": 3,
+                "convert":"function(x){return (((x[0]<<16)>>0)>>16)/10;}",
                 "oid": ".1.3.6.1.4.1.47480.1.4",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
-                    "min": 0,
-                    "max": 65535
+                    "min": 100,
+                    "max": 2000
                 }
             },
             {
-                "description": "Аналоговый вход ADC2",
-                "name": "mb_adc_value_2",
-                "sql_type": "INTEGER",                          
+                "description": "Температура 4",
+                "name": "mb_t4",
+                "sql_type": "FLOAT",    
                 "addr": 127,
                 "reg": 4,
+                "convert":"function(x){return (((x[0]<<16)>>0)>>16)/10;}",
                 "oid": ".1.3.6.1.4.1.47480.1.5",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
-                    "min": 0,
-                    "max": 65535
+                    "min": 100,
+                    "max": 2000
                 }
             },
             {
@@ -75,6 +98,8 @@
                 "addr": 127,
                 "reg": 5,
                 "oid": ".1.3.6.1.4.1.47480.1.6",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -87,6 +112,8 @@
                 "addr": 127,
                 "reg": 6,
                 "oid": ".1.3.6.1.4.1.47480.1.7",
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -104,6 +131,8 @@
                 "reg": 22,
                 "oid": ".1.3.6.1.4.1.47480.2.1",
                 "default": 0,
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 0,
                     "max": 65535
@@ -116,6 +145,8 @@
                 "reg": 23,
                 "oid": ".1.3.6.1.4.1.47480.2.2",
                 "default": 0,
+                "type": "modbus",
+                "bus": "modbus_internal",
                 "intervals": {
                     "min": 0,
                     "max": 65535
