@@ -8,13 +8,15 @@ DBUS_SESSION_FILE=/var/run/dbus_session
 
 start() {
   export NODE_PATH=/usr/lib/node_modules:$NODE_PATH
-  dbus-launch > $DBUS_SESSION_FILE
-  source $DBUS_SESSION_FILE
   if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
     echo 'Service already running' >&2
     return 1
   fi
   echo 'Starting service…' >&2
+
+  dbus-launch --sh-syntax > $DBUS_SESSION_FILE
+  source $DBUS_SESSION_FILE
+
   local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
   su -c "$CMD" $RUNAS > "$PIDFILE"
   echo 'Service started' >&2

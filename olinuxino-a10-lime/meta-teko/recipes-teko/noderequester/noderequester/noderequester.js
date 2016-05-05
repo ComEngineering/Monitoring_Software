@@ -150,10 +150,10 @@ function update_parameters() {
                 var e = obj.input.values[i + j];
                 if (e.convert != null) {
                     var func = new Function('return ' + e.convert)();
-                    regs[i + j] = func(regs[i + j], i + j);
+                    regs[j] = func(regs, j);
                 }
 
-                if (regs[i + j] != e.value) {
+                if (regs[j] != e.value) {
                     e.value = regs[i + j];
                     dirty = true;
                 }
