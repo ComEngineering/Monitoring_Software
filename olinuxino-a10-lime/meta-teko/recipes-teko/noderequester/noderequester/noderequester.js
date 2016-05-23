@@ -18,6 +18,8 @@ function init_serial_buses() {
             console.log("Initialising bus " + b.name)
             buses[b.name] = new config[b.type]();
             buses[b.name].Connect(b.system_dev, b.baudrate, b.stopbits);
+            buses[b.name].req_time = 0;
+            buses[b.name].delay = b.delay;
         } catch (err) {
             console.log("Error while " + b.name + " initialisation. " + err);
         }
@@ -37,7 +39,7 @@ bus.requestName(name, 0);
 var tekoIface = {
     name: 'com.teko.modbus',
     methods: {
-        write: ['addr', 'reg', 'val'],
+        write: ['bus', 'addr', 'reg', 'val'],
     },
     signals: {
         update: [ 'us', 'name1', 'name2' ]
@@ -47,12 +49,13 @@ var tekoIface = {
 var teko_dbus = {
     //to test
     //dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write uint16:127 uint16:1 array:uint16:123,124,125
-    write : function(addr, reg, val)
+    write : function(bus, addr, reg, val)
     {
+        console.log("call write function", bus, addr, reg, val);
         try {
             //пока плата не поддерживает 10h функцию
-            for (var i=0;i<val.length;i++)
-                mb.WriteRegister(addr, reg+i, val[i]);
+            //for (var i=0;i<val.length;i++)
+            //    mb.WriteRegister(addr, reg+i, val[i]);
         } catch(e) {
             console.log(e);
             return 1;
@@ -131,6 +134,12 @@ function init_mb_req() {
     update_parameters();
 }
 
+function is_bus_ready(reg) {
+   var r = (new Date().getTime() - buses[reg.bus].req_time);// >= buses[reg.bus].delay;
+   //console.log(reg.bus, r, buses[reg.bus].req_time, buses[reg.bus].delay);
+   return r >= buses[reg.bus].delay;
+}
+
 //функция чтения/записи параметров
 function update_parameters() {
     var dirty = false;
@@ -141,31 +150,44 @@ function update_parameters() {
 
         //search for the end of sequence
         while (is_reg_following(obj.input.values[i + sequence_length], obj.input.values[i + sequence_length + 1]))
-            { sequence_length++; console.log('sequence: '+ sequence);}
+            sequence_length++; 
+
+        if (is_bus_ready(register)) {
         
         try {
+            //console.log("reading ", register.addr, register.reg, sequence_length);
             var regs = buses[register.bus].ReadRegisters(register.addr, register.reg, sequence_length + 1);
+            //console.log(regs);
+            
             for (var j = 0; j < sequence_length; j++) {
                 //TODO: check that link here works properly
                 var e = obj.input.values[i + j];
+
                 if (e.convert != null) {
+                    //console.log("converting ", regs, j);
                     var func = new Function('return ' + e.convert)();
                     regs[j] = func(regs, j);
                 }
-
+                
                 if (regs[j] != e.value) {
-                    e.value = regs[i + j];
+                    //console.log('dirty flag set');
+                    //console.log(e.description, regs[j], e.value);
+                    //console.log(regs);
+                    e.value = regs[j];
                     dirty = true;
                 }
             }
         } catch (err) {
-            console.log("Error while requesting " + reguster + ". " + err);
+            console.log("Error while requesting " + register + ". " + err);
         }
-
+          
+        buses[register.bus].req_time = new Date().getTime();
+        }
         i += sequence_length;
     }
 
     if (dirty) {
+        console.log('inserting to db');
         var sql = 'INSERT INTO `mb_parameters` (';
         // задаем колонки для параметров
         for(var i = 0; i<obj.input.values.length-1; i++)

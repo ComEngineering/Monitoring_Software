@@ -45,13 +45,15 @@ function get_parameter_value(param) {
 function set_parameter_value(param, value) {
     parameters_values[param.name] = value;
 
+    console.log('writing ', param, value);
+
     sessionBus.invoke({ 
         path: '/com/teko/modbus', 
         destination: 'teko.modbus', 
         'interface': 'com.teko.modbus', 
         member: 'write', 
-        signature: 'iyai',
-        body: [param.addr, param.reg, [value]],
+        signature: 'siyai',
+        body: [param.bus, param.addr, param.reg, [value]],
     }, function(err, res) {
         console.log(res);
     });
@@ -104,6 +106,8 @@ function main() {
                         var v = get_parameter_value(e);
                         console.log(v);
                     } else {
+                        //if (typeof(prq.value.value) != 'number') 
+                        //    return;
                         set_parameter_value(e, prq.value.value);
                         var v = prq.value;
                     }
@@ -115,7 +119,7 @@ function main() {
         agent.bind({ family: 'udp4', port: 161 });
 
     }); 
- 
+console.log('registering dbus intf'); 
     // dbus interfase 
     sessionBus.getService('teko.modbus').getInterface(
         '/com/teko/modbus',
@@ -135,6 +139,7 @@ function main() {
                 }
  
                 extend(parameters_values, rows[0]);
+                console.log('parameters:', parameters_values);
             });
         });
  
