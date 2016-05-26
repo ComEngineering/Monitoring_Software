@@ -17,6 +17,7 @@ teco MODULE-IDENTITY
 
 ctlRdOnlyValues      OBJECT IDENTIFIER ::= { teco 1 }
 ctlRdWrValues        OBJECT IDENTIFIER ::= { teco 2 }
+conditionerValues    OBJECT IDENTIFIER ::= { teco 3 }
 
 Themperature ::= TEXTUAL-CONVENTION
     DISPLAY-HINT "d-3"
@@ -49,7 +50,7 @@ ctlUnitModuleTemperature2  OBJECT-TYPE
 		"Temperature of module"
 	::= { ctlRdOnlyValues 3 }
 	
-ctlUnitModuleADC1  OBJECT-TYPE
+ctlUnitModuleTemperature3  OBJECT-TYPE
 	SYNTAX     Integer32
 	MAX-ACCESS read-only
 	STATUS     current
@@ -57,7 +58,7 @@ ctlUnitModuleADC1  OBJECT-TYPE
 		"ADC1 input value"
 	::= { ctlRdOnlyValues 4 }
 	
-ctlUnitModuleADC2  OBJECT-TYPE
+ctlUnitModuleTemperature4  OBJECT-TYPE
 	SYNTAX     Integer32
 	MAX-ACCESS read-only
 	STATUS     current
@@ -97,5 +98,87 @@ ctlUnitPowerContactsOutput  OBJECT-TYPE
 	DESCRIPTION 
 		"Values of output power contacts"
 	::= { ctlRdWrValues 2 }
-	
+
+state  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner state"
+	::= { conditionerValues 1 }
+
+fails  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner failes"
+	::= { conditionerValues 2 }
+
+temp3  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp3"
+	::= { conditionerValues 3 }
+
+temp1  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp1"
+	::= { conditionerValues 4 }
+
+temp7  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp7"
+	::= { conditionerValues 5 }
+
+temp8  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp8"
+	::= { conditionerValues 6 }
+
+temp4  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp4"
+	::= { conditionerValues 7 }
+
+temp6  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp6"
+	::= { conditionerValues 8 }
+
+temp5  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp5"
+	::= { conditionerValues 9 }
+
+temp2  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp1"
+	::= { conditionerValues 10 }
+
+
+
 END
