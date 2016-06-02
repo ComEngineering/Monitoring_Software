@@ -159,7 +159,7 @@ function update_parameters() {
             var regs = buses[register.bus].ReadRegisters(register.addr, register.reg, sequence_length + 1);
             //console.log(regs);
             
-            for (var j = 0; j < sequence_length; j++) {
+            for (var j = 0; j < sequence_length+1; j++) {
                 //TODO: check that link here works properly
                 var e = obj.input.values[i + j];
 
