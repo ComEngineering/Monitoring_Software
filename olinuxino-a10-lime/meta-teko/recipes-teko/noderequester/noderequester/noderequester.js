@@ -2,9 +2,13 @@ var fs = require('fs');
 var mysql = require('mysql');
 var modbus = require('modbus');
 var dbus = require('dbus-native');
+var snmp = require('snmpjs');
 
 var obj;
 var mb;
+
+var snmp_client = snmp.createClient();
+
 var buses = [];
 
 function init_serial_buses() {
@@ -29,7 +33,23 @@ function init_serial_buses() {
 function is_reg_following(p_reg, reg)
 {
     if (reg == null) return false;
-    return ((reg.type == "modbus") && (p_reg.bus == reg.bus) && (p_reg.addr == reg.addr) && (p_reg.reg + 1 == reg.reg));
+    return ((reg.type == "modbus_reg") && (p_reg.bus == reg.bus) && (p_reg.addr == reg.addr) && (p_reg.reg + 1 == reg.reg));
+}
+
+function get_reg(bus, addr, reg_addr)
+{
+    for (var i = 0; i < obj.input.values.length; i++) {
+        if (obj.input.values[i].bus == bus && obj.input.values[i].addr == addr &&
+            obj.input.values[i].reg == reg_addr)
+            return obj.input.values[i];
+    return null;
+}
+
+function check_reg_range(reg, val)
+{
+    if ((val >= reg.intervals.min) || (val <= reg.intervals.max))
+        return true;
+    return false;
 }
 
 var bus = dbus.sessionBus();
@@ -51,11 +71,31 @@ var teko_dbus = {
     //dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write uint16:127 uint16:1 array:uint16:123,124,125
     write : function(bus, addr, reg, val)
     {
-        console.log("call write function", bus, addr, reg, val);
         try {
-            //пока плата не поддерживает 10h функцию
-            //for (var i=0;i<val.length;i++)
-            //    mb.WriteRegister(addr, reg+i, val[i]);
+            console.log("call write function");
+
+            switch (r.type)
+            {
+                case "modbus_reg":
+                    for (var i=0;i<val.length;i++)
+                    {
+                        var r = get_reg(bus, addr, reg+i);
+                        if (check_reg_range(r, val[i]))
+                            buses[bus].WriteRegister(addr, reg+i, val[i]);
+                        else console.log(r.description, "value out of range")
+                    }
+                break;
+
+                case "modbus_coil":
+                    for (var i=0; i<val.length;i++)
+                    {
+                        buses[bus].WriteCoil(addr, reg+i, val[i]);
+                    }
+                break;
+
+                default:
+                    console.log("calling write with unknown register type", r.type)
+            }
         } catch(e) {
             console.log(e);
             return 1;
@@ -108,6 +148,10 @@ function main() {
     obj.input.values.forEach(function(e){
         sql += e.name + ' ' + e.sql_type + ', '
     });
+    obj.output.values.forEach(function(e){
+        sql += e.name + ' ' + e.sql_type + ', '
+    });
+
     sql += 'PRIMARY KEY(`id`))';
 
     connection.query(sql, function(err) {
@@ -126,8 +170,12 @@ function init_mb_req() {
     init_serial_buses();
 
     obj.input.values.forEach(function(e) {
-        e.value = 0;
+        e.value = e.default;
     });
+    obj.output.values.forEach(function(e) {
+        e.value = e.default;
+    });
+
 
     console.log("Starting parameters update ...");
     //начинаем читать параметры
@@ -136,7 +184,6 @@ function init_mb_req() {
 
 function is_bus_ready(reg) {
    var r = (new Date().getTime() - buses[reg.bus].req_time);// >= buses[reg.bus].delay;
-   //console.log(reg.bus, r, buses[reg.bus].req_time, buses[reg.bus].delay);
    return r >= buses[reg.bus].delay;
 }
 
@@ -155,27 +202,36 @@ function update_parameters() {
         if (is_bus_ready(register)) {
         
         try {
-            //console.log("reading ", register.addr, register.reg, sequence_length);
-            var regs = buses[register.bus].ReadRegisters(register.addr, register.reg, sequence_length + 1);
-            //console.log(regs);
-            
-            for (var j = 0; j < sequence_length+1; j++) {
-                //TODO: check that link here works properly
-                var e = obj.input.values[i + j];
+            switch (register.type)
+            {
+                case "modbus_reg":
+                    var regs = buses[register.bus].ReadRegisters(register.addr, register.reg, sequence_length + 1);
+                    
+                    for (var j = 0; j < sequence_length+1; j++) {
+                        var e = obj.input.values[i + j];
 
-                if (e.convert != null) {
-                    //console.log("converting ", regs, j);
-                    var func = new Function('return ' + e.convert)();
-                    regs[j] = func(regs, j);
-                }
-                
-                if (regs[j] != e.value) {
-                    //console.log('dirty flag set');
-                    //console.log(e.description, regs[j], e.value);
-                    //console.log(regs);
-                    e.value = regs[j];
-                    dirty = true;
-                }
+                        if (e.convert != null) {
+                            var func = new Function('return ' + e.convert)();
+                            regs[j] = func(regs, j);
+                        }
+                        
+                        if (regs[j] != e.value) {
+                            e.value = regs[j];
+                            dirty = true;
+                        }
+                    }
+                break;
+
+                case "snmp_reg":
+                    client.get(register.ip, register.community, 0, register.oid, function (snmpmsg) {
+                        console.log("snmp: ", snmpmsg);
+                        e.value = 
+                        client.unref();
+                    });
+                break;
+
+                default:
+                    console.log("unhandled register type", register.type);
             }
         } catch (err) {
             console.log("Error while requesting " + register + ". " + err);
@@ -190,13 +246,19 @@ function update_parameters() {
         console.log('inserting to db');
         var sql = 'INSERT INTO `mb_parameters` (';
         // задаем колонки для параметров
-        for(var i = 0; i<obj.input.values.length-1; i++)
+        for(var i = 0; i<obj.input.values.length; i++)
             sql += obj.input.values[i].name + ', ';    
-        sql += obj.input.values[obj.input.values.length-1].name + ') values (';
-        for(var i = 0; i<obj.input.values.length-1; i++)
-            sql += obj.input.values[i].value + ', ';
+        for(var i = 0; i<obj.output.values.length-1; i++)
+            sql += obj.output.values[i].name + ', ';    
 
-        sql += obj.input.values[obj.input.values.length-1].value + ')';
+        sql += obj.output.values[obj.output.values.length-1].name + ') values (';
+
+        for(var i = 0; i<obj.input.values.length; i++)
+            sql += obj.input.values[i].value + ', ';
+        for(var i = 0; i<obj.output.values.length-1; i++)
+            sql += obj.output.values[i].value + ', ';
+
+        sql += obj.output.values[obj.output.values.length-1].value + ')';
 
         connection.query(sql, function(err) {
             if (err) {

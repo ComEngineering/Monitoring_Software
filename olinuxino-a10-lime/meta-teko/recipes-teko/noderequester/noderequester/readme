@@ -7,9 +7,10 @@
 Также регистрируется dbus интерфейс для записи параметров com.teko.modbus.write.
 Пример комманды для записи (dbus-send уже есть в образе core-image-teko):
 
-dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write uint16:127 uint16:1 array:uint16:123,124,125
+dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write string:"modbus_internal" uint16:127 uint16:1 array:uint16:123,124,125
 
 Параметры интерфейса записи:
-Первый параметр адрес устройства в сети Modbus.
-Второй - адрес регистра. 
-Третий - массив значений. Если записывается один регистр - массив из одного элемента.
+1. Имя шины устройства (modbus_external, modbus_internal ...)
+2. Aдрес устройства в сети Modbus.
+3. Адрес регистра. 
+4. Mассив значений. Если записывается один регистр - массив из одного элемента.

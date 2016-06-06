@@ -4,14 +4,14 @@
     "version": "1.0.1",
     "buses": [{
         "name": "modbus_internal",
-        "type": "modbus",
+        "type": "modbus_reg",
         "system_dev": "/dev/ttyS2",
         "baudrate": 9600,
         "stopbits": 1,
         "delay": 0
     }, {
         "name": "modbus_external",
-        "type": "modbus",
+        "type": "modbus_reg",
         "system_dev": "/dev/ttyS1",
         "baudrate": 9600,
         "stopbits": 1,
@@ -25,7 +25,7 @@
             "addr": 127,
             "reg": 0,
             "oid": ".1.3.6.1.4.1.47480.1.1",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
@@ -39,7 +39,7 @@
             "reg": 1,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.2",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 10,
@@ -53,7 +53,7 @@
             "reg": 2,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.3",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 100,
@@ -67,7 +67,7 @@
             "reg": 3,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.4",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 100,
@@ -81,7 +81,7 @@
             "reg": 4,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.5",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 100,
@@ -94,7 +94,7 @@
             "addr": 127,
             "reg": 5,
             "oid": ".1.3.6.1.4.1.47480.1.6",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
@@ -107,7 +107,7 @@
             "addr": 127,
             "reg": 6,
             "oid": ".1.3.6.1.4.1.47480.1.7",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
@@ -120,7 +120,7 @@
             "addr": 1,
             "reg": 0,
             "oid": ".1.3.6.1.4.1.47480.3.1",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -133,7 +133,7 @@
             "addr": 1,
             "reg": 1,
             "oid": ".1.3.6.1.4.1.47480.3.2",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -146,7 +146,7 @@
             "addr": 1,
             "reg": 2,
             "oid": ".1.3.6.1.4.1.47480.3.3",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -159,7 +159,7 @@
             "addr": 1,
             "reg": 3,
             "oid": ".1.3.6.1.4.1.47480.3.4",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -172,7 +172,7 @@
             "addr": 1,
             "reg": 4,
             "oid": ".1.3.6.1.4.1.47480.3.5",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -185,7 +185,7 @@
             "addr": 1,
             "reg": 5,
             "oid": ".1.3.6.1.4.1.47480.3.6",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -198,7 +198,7 @@
             "addr": 1,
             "reg": 6,
             "oid": ".1.3.6.1.4.1.47480.3.7",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -211,7 +211,7 @@
             "addr": 1,
             "reg": 7,
             "oid": ".1.3.6.1.4.1.47480.3.8",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -224,7 +224,7 @@
             "addr": 1,
             "reg": 8,
             "oid": ".1.3.6.1.4.1.47480.3.9",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -237,7 +237,7 @@
             "addr": 1,
             "reg": 9,
             "oid": ".1.3.6.1.4.1.47480.3.10",
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -254,7 +254,7 @@
             "reg": 22,
             "oid": ".1.3.6.1.4.1.47480.2.1",
             "default": 0,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
@@ -267,7 +267,7 @@
             "reg": 23,
             "oid": ".1.3.6.1.4.1.47480.2.2",
             "default": 0,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
@@ -280,7 +280,7 @@
             "reg": 20,
             "oid": ".1.3.6.1.4.1.47480.4.1",
             "default": 30,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 10,
@@ -293,7 +293,7 @@
             "reg": 21,
             "oid": ".1.3.6.1.4.1.47480.4.2",
             "default": 5,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 5,
@@ -306,7 +306,7 @@
             "reg": 22,
             "oid": ".1.3.6.1.4.1.47480.4.3",
             "default": 31,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 20,
@@ -319,7 +319,7 @@
             "reg": 23,
             "oid": ".1.3.6.1.4.1.47480.4.4",
             "default": 40,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 20,
@@ -332,7 +332,7 @@
             "reg": 24,
             "oid": ".1.3.6.1.4.1.47480.4.5",
             "default": 18,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 5,
@@ -345,7 +345,7 @@
             "reg": 25,
             "oid": ".1.3.6.1.4.1.47480.4.6",
             "default": 7,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 5,
@@ -358,7 +358,7 @@
             "reg": 28,
             "oid": ".1.3.6.1.4.1.47480.4.7",
             "default": 60,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 30,
@@ -371,7 +371,7 @@
             "reg": 29,
             "oid": ".1.3.6.1.4.1.47480.4.8",
             "default": 5,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 5,
@@ -384,7 +384,7 @@
             "reg": 30,
             "oid": ".1.3.6.1.4.1.47480.4.9",
             "default": 30,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 30,
@@ -397,7 +397,7 @@
             "reg": 31,
             "oid": ".1.3.6.1.4.1.47480.4.10",
             "default": 32,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 30,
@@ -410,7 +410,7 @@
             "reg": 32,
             "oid": ".1.3.6.1.4.1.47480.4.11",
             "default": 25,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 20,
@@ -423,7 +423,7 @@
             "reg": 33,
             "oid": ".1.3.6.1.4.1.47480.4.12",
             "default": 23,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 15,
@@ -436,7 +436,7 @@
             "reg": 34,
             "oid": ".1.3.6.1.4.1.47480.4.13",
             "default": 15,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 1,
@@ -449,7 +449,7 @@
             "reg": 35,
             "oid": ".1.3.6.1.4.1.47480.4.14",
             "default": 5,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 1,
@@ -462,7 +462,7 @@
             "reg": 36,
             "oid": ".1.3.6.1.4.1.47480.4.15",
             "default": 130,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 1,
@@ -475,7 +475,7 @@
             "reg": 37,
             "oid": ".1.3.6.1.4.1.47480.4.16",
             "default": 15,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -488,7 +488,7 @@
             "reg": 44,
             "oid": ".1.3.6.1.4.1.47480.4.17",
             "default": 0,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
@@ -501,7 +501,7 @@
             "reg": 45,
             "oid": ".1.3.6.1.4.1.47480.4.18",
             "default": 0,
-            "type": "modbus",
+            "type": "modbus_reg",
             "bus": "modbus_external",
             "intervals": {
                 "min": 0,
