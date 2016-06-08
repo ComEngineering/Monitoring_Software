@@ -4,14 +4,14 @@
     "version": "1.0.1",
     "buses": [{
         "name": "modbus_internal",
-        "type": "modbus_reg",
+        "type": "modbus",
         "system_dev": "/dev/ttyS2",
         "baudrate": 9600,
         "stopbits": 1,
         "delay": 0
     }, {
         "name": "modbus_external",
-        "type": "modbus_reg",
+        "type": "modbus",
         "system_dev": "/dev/ttyS1",
         "baudrate": 9600,
         "stopbits": 1,
