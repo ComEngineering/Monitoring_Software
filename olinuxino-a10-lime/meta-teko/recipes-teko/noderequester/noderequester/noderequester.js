@@ -38,7 +38,7 @@ function is_reg_following(p_reg, reg)
 
 function get_reg(bus, addr, reg_addr)
 {
-    for (var i = 0; i < obj.input.values.length; i++) {
+    for (var i = 0; i < obj.input.values.length; i++)
         if (obj.input.values[i].bus == bus && obj.input.values[i].addr == addr &&
             obj.input.values[i].reg == reg_addr)
             return obj.input.values[i];
