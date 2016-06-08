@@ -250,6 +250,7 @@
         "values": [{
             "description": "Выхода сигнальных сухих контактов SDCO",
             "name": "mb_dry_contact_output_value",
+            "sql_type": "INTEGER",
             "addr": 127,
             "reg": 22,
             "oid": ".1.3.6.1.4.1.47480.2.1",
@@ -263,6 +264,7 @@
         }, {
             "description": "Выхода силовых сухих контактов PDCO",
             "name": "mb_power_contact_output_value",
+            "sql_type": "INTEGER",
             "addr": 127,
             "reg": 23,
             "oid": ".1.3.6.1.4.1.47480.2.2",
@@ -276,6 +278,7 @@
         }, {
             "description": "Задание внутренней температуры",
             "name": "conditioner_int_temp_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 20,
             "oid": ".1.3.6.1.4.1.47480.4.1",
@@ -289,6 +292,7 @@
         }, {
             "description": "DT вкл/выкл компрессора",
             "name": "conditioner_dt_comp",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 21,
             "oid": ".1.3.6.1.4.1.47480.4.2",
@@ -302,6 +306,7 @@
         }, {
             "description": "Задание температуры ta1",
             "name": "conditioner_ta1_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 22,
             "oid": ".1.3.6.1.4.1.47480.4.3",
@@ -315,6 +320,7 @@
         }, {
             "description": "Задание аварийно-высокой температуры в шкафу",
             "name": "conditioner_fail_t_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 23,
             "oid": ".1.3.6.1.4.1.47480.4.4",
@@ -328,6 +334,7 @@
         }, {
             "description": "Задание температуры th1",
             "name": "conditioner_th1_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 24,
             "oid": ".1.3.6.1.4.1.47480.4.5",
@@ -341,6 +348,7 @@
         }, {
             "description": "Задание аварийно-низкой температуры в шкафу th2",
             "name": "conditioner_th2_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 25,
             "oid": ".1.3.6.1.4.1.47480.4.6",
@@ -354,6 +362,7 @@
         }, {
             "description": "Задание аварийной температуры хладагента t7",
             "name": "conditioner_t7_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 28,
             "oid": ".1.3.6.1.4.1.47480.4.7",
@@ -367,6 +376,7 @@
         }, {
             "description": "DT аварийной температуры хладагента",
             "name": "conditioner_dt_hlad_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 29,
             "oid": ".1.3.6.1.4.1.47480.4.8",
@@ -380,6 +390,7 @@
         }, {
             "description": "Задание температуры для зоны + конденсатора",
             "name": "conditioner_p_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 30,
             "oid": ".1.3.6.1.4.1.47480.4.9",
@@ -393,6 +404,7 @@
         }, {
             "description": "Задание температуры для зоны ++ конденсатора",
             "name": "conditioner_pp_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 31,
             "oid": ".1.3.6.1.4.1.47480.4.10",
@@ -406,6 +418,7 @@
         }, {
             "description": "Задание температуры для зоны - конденсатора",
             "name": "conditioner_m_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 32,
             "oid": ".1.3.6.1.4.1.47480.4.11",
@@ -419,6 +432,7 @@
         }, {
             "description": "Задание температуры для зоны -- конденсатора",
             "name": "conditioner_mm_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 33,
             "oid": ".1.3.6.1.4.1.47480.4.12",
@@ -432,6 +446,7 @@
         }, {
             "description": "Задание интервала времени для зоны + конденсатора",
             "name": "conditioner_p_cond_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 34,
             "oid": ".1.3.6.1.4.1.47480.4.13",
@@ -445,6 +460,7 @@
         }, {
             "description": "Задание интервала времени для зоны ++ конденсатора",
             "name": "conditioner_pp_cond_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 35,
             "oid": ".1.3.6.1.4.1.47480.4.14",
@@ -458,6 +474,7 @@
         }, {
             "description": "Задание интервала времени для зоны - конденсатора",
             "name": "conditioner_m_cond_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 36,
             "oid": ".1.3.6.1.4.1.47480.4.15",
@@ -471,6 +488,7 @@
         }, {
             "description": "Задание температуры для включения фрикулига",
             "name": "conditioner_freecool_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 37,
             "oid": ".1.3.6.1.4.1.47480.4.16",
@@ -484,6 +502,7 @@
         }, {
             "description": "Задание скорости вентилятора конденсатора",
             "name": "conditioner_fan_speed_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 44,
             "oid": ".1.3.6.1.4.1.47480.4.17",
@@ -497,6 +516,7 @@
         }, {
             "description": "Задание скорости вентилятора испарителя",
             "name": "conditioner_fan2_speed_ref",
+            "sql_type": "INTEGER",
             "addr": 1,
             "reg": 45,
             "oid": ".1.3.6.1.4.1.47480.4.18",
