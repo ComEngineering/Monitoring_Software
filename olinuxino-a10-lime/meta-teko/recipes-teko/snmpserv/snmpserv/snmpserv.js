@@ -6,9 +6,6 @@ var extend = require('util')._extend;
 
 var parameters_values;
  
-// snmp server test read command
-// snmpget -v 2c -c any localhost:8161 .1.3.6.1.2.1.1.5.0
-// snmpset -v 2c -c any localhost:8161 .1.3.6.1.2.1.1.5.0 s 123
 var agent = snmp.createAgent();
 var sessionBus = dbus.sessionBus();
 
@@ -39,7 +36,8 @@ function get_parameter_value(param) {
             v = parseInt(v*1000);
         break;
     }
-    return snmp.data.createData({ type: 'Integer', value: v });;
+    var types = {"number": "Integer", "string": "OctetString"};
+    return snmp.data.createData({ type: types[typeof(v)], value: v });;
 }
 
 function set_parameter_value(param, value) {
@@ -52,8 +50,8 @@ function set_parameter_value(param, value) {
         destination: 'teko.modbus', 
         'interface': 'com.teko.modbus', 
         member: 'write', 
-        signature: 'siyai',
-        body: [param.bus, param.addr, param.reg, [value]],
+        signature: 'ss',
+        body: [param.name, JSON.stringify(value)]
     }, function(err, res) {
         console.log(res);
     });
@@ -106,8 +104,8 @@ function main() {
                         var v = get_parameter_value(e);
                         console.log(v);
                     } else {
-                        //if (typeof(prq.value.value) != 'number') 
-                        //    return;
+                        if (typeof(prq.value.value) != 'number') 
+                            return;
                         set_parameter_value(e, prq.value.value);
                         var v = prq.value;
                     }

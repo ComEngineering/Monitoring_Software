@@ -18,6 +18,7 @@ teco MODULE-IDENTITY
 ctlRdOnlyValues      OBJECT IDENTIFIER ::= { teco 1 }
 ctlRdWrValues        OBJECT IDENTIFIER ::= { teco 2 }
 conditionerValues    OBJECT IDENTIFIER ::= { teco 3 }
+huaweiValues         OBJECT IDENTIFIER ::= { teco 4 }
 
 Themperature ::= TEXTUAL-CONVENTION
     DISPLAY-HINT "d-3"
@@ -178,6 +179,14 @@ temp2  OBJECT-TYPE
 	DESCRIPTION 
 		"Conditioner temp1"
 	::= { conditionerValues 10 }
+
+example  OBJECT-TYPE
+	SYNTAX     OCTET STRING
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Conditioner temp1"
+	::= { huaweiValues 1 }
 
 
 

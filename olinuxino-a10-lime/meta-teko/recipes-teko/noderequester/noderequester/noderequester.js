@@ -7,14 +7,21 @@ var snmp = require('snmpjs');
 var obj;
 var mb;
 
-var snmp_client = snmp.createClient();
-
 var buses = [];
+
+function SnmpObject() {
+    this.delay = 0;
+    this.req_time = 0;
+    this.snmp_client = snmp.createClient();
+}
+
+SnmpObject.prototype.Connect = function(){}
+
 
 function init_serial_buses() {
     var config = {
         "modbus": modbus.MbObject,
-        "pcomm": null
+        "snmp": SnmpObject,
     };
 
     obj.buses.forEach(function(b) {
@@ -36,12 +43,17 @@ function is_reg_following(p_reg, reg)
     return ((reg.type == "modbus_reg") && (p_reg.bus == reg.bus) && (p_reg.addr == reg.addr) && (p_reg.reg + 1 == reg.reg));
 }
 
-function get_reg(bus, addr, reg_addr)
+function get_reg_by_name(reg_name)
 {
-    for (var i = 0; i < obj.input.values.length; i++) {
-        if (obj.input.values[i].bus == bus && obj.input.values[i].addr == addr &&
-            obj.input.values[i].reg == reg_addr)
+    for (var i = 0; i < obj.input.values.length; i++) 
+        if (obj.input.values[i].name == reg_name)
             return obj.input.values[i];
+
+    for (var i = 0; i < obj.output.values.length; i++)
+        if (obj.output.values[i].name == reg_name)
+            return obj.output.values[i];
+
+
     return null;
 }
 
@@ -59,7 +71,7 @@ bus.requestName(name, 0);
 var tekoIface = {
     name: 'com.teko.modbus',
     methods: {
-        write: ['bus', 'addr', 'reg', 'val'],
+        write: ['s', 's'],
     },
     signals: {
         update: [ 'us', 'name1', 'name2' ]
@@ -69,28 +81,33 @@ var tekoIface = {
 var teko_dbus = {
     //to test
     //dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write uint16:127 uint16:1 array:uint16:123,124,125
-    write : function(bus, addr, reg, val)
+    write : function(reg_name, val)
     {
         try {
-            console.log("call write function");
-
+            console.log("call write function", reg_name, val);
+            
+            var r = get_reg_by_name(reg_name);
             switch (r.type)
             {
                 case "modbus_reg":
-                    for (var i=0;i<val.length;i++)
-                    {
-                        var r = get_reg(bus, addr, reg+i);
-                        if (check_reg_range(r, val[i]))
-                            buses[bus].WriteRegister(addr, reg+i, val[i]);
-                        else console.log(r.description, "value out of range")
-                    }
+                    val = JSON.parse(val);
+                    if (check_reg_range(r, val)){
+                        r.value = val;
+                        buses[r.bus].WriteRegister(r.addr, r.reg, val);
+                    } else console.log(r.description, "value out of range")
                 break;
 
                 case "modbus_coil":
-                    for (var i=0; i<val.length;i++)
-                    {
-                        buses[bus].WriteCoil(addr, reg+i, val[i]);
-                    }
+                    val = JSON.parse(val);
+                    buses[r.bus].WriteCoil(r.addr, r.reg, val);
+                break;
+
+                case "snmp_reg":
+                    val = JSON.parse(val);
+                    var types = {"number": "Integer", "string": "OctetString"};
+                    buses[register.bus].snmp_client.set(r.ip, r.community, 0, r.reg, 
+                        snmp.data.createData({ type: types[typeof(v)],
+                        value: val}), function (snmpmsg) {});
                 break;
 
                 default:
@@ -223,10 +240,14 @@ function update_parameters() {
                 break;
 
                 case "snmp_reg":
-                    client.get(register.ip, register.community, 0, register.oid, function (snmpmsg) {
-                        console.log("snmp: ", snmpmsg);
-                        e.value = 
-                        client.unref();
+                    buses[register.bus].snmp_client.get(register.ip, register.community, 0, register.reg, function(snmpmsg) {
+                        snmpmsg.pdu.varbinds.forEach(function (varbind) {
+                            if (register.value != varbind.data.value) {
+                                dirty = true;
+                                register.value = varbind.data.value.toString();
+                            }
+                            console.log(varbind.oid + ' = ' + register.value, typeof(register.value));
+                        });
                     });
                 break;
 
@@ -254,11 +275,18 @@ function update_parameters() {
         sql += obj.output.values[obj.output.values.length-1].name + ') values (';
 
         for(var i = 0; i<obj.input.values.length; i++)
-            sql += obj.input.values[i].value + ', ';
+        {
+            if (typeof(obj.input.values[i].value) == 'string')
+                sql += '\'' + obj.input.values[i].value + '\', ';
+            else
+                sql += obj.input.values[i].value + ', ';
+        }
         for(var i = 0; i<obj.output.values.length-1; i++)
             sql += obj.output.values[i].value + ', ';
 
         sql += obj.output.values[obj.output.values.length-1].value + ')';
+
+console.log(sql);
 
         connection.query(sql, function(err) {
             if (err) {
@@ -278,4 +306,5 @@ function update_parameters() {
 function sleep(ms, callback) {
    setTimeout(function(){callback();}, ms);
 }
+
 
