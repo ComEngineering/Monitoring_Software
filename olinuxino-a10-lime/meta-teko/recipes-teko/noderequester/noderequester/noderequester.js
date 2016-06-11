@@ -79,8 +79,6 @@ var tekoIface = {
 };
 
 var teko_dbus = {
-    //to test
-    //dbus-send --print-reply --type=method_call --dest='teko.modbus' '/com/teko/modbus' com.teko.modbus.write uint16:127 uint16:1 array:uint16:123,124,125
     write : function(reg_name, val)
     {
         try {
@@ -282,11 +280,12 @@ function update_parameters() {
                 sql += obj.input.values[i].value + ', ';
         }
         for(var i = 0; i<obj.output.values.length-1; i++)
-            sql += obj.output.values[i].value + ', ';
+            if (typeof(obj.output.values[i].value) == 'string')
+                sql += '\'' + obj.output.values[i].value + '\', ';
+            else
+                sql += obj.output.values[i].value + ', ';
 
         sql += obj.output.values[obj.output.values.length-1].value + ')';
-
-console.log(sql);
 
         connection.query(sql, function(err) {
             if (err) {
@@ -298,7 +297,6 @@ console.log(sql);
         teko_dbus.emit('update', Math.floor(new Date() / 1000), 'parameters update');
     }
 
-    //пока обновляем все вместе
     sleep(100, update_parameters);
 }
 
