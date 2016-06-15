@@ -143,7 +143,6 @@ var teko_dbus = {
             }
         } catch(e) {
             console.log(e);
-            return 1;
         }
         return 0;
     },
@@ -216,6 +215,7 @@ function init_mb_req() {
 
     obj.input.values.forEach(function(e) {
         e.value = e.default;
+        e.fails_counter = 0;
     });
     obj.output.values.forEach(function(e) {
         e.value = e.default;
@@ -251,7 +251,7 @@ function update_parameters() {
             {
                 case "modbus_reg":
                     var regs = buses[register.bus].ReadRegisters(register.addr, register.reg, sequence_length + 1);
-                    
+                                        
                     for (var j = 0; j < sequence_length+1; j++) {
                         var e = obj.input.values[i + j];
 
@@ -264,6 +264,7 @@ function update_parameters() {
                             e.value = regs[j];
                             obj.dirty = true;
                         }
+                        e.fails_counter = 0;
                     }
                 break;
 
@@ -288,6 +289,12 @@ function update_parameters() {
             }
         } catch (err) {
             console.log("Error while requesting " + register + ". " + err);
+            for (var n=0; n<sequence_length; n++) {
+                if (obj.input.values[i+n].fails_counter > obj.max_fail_requests) {
+                    obj.input.values[i+n].value = obj.input.values[i+n].default;
+                }
+                obj.input.values[i+n].fails_counter++;
+            }
         }
           
         buses[register.bus].req_time = new Date().getTime();
@@ -307,18 +314,15 @@ function update_parameters() {
 
         sql += obj.output.values[obj.output.values.length-1].name + ') values (';
 
-        for(var i = 0; i<obj.input.values.length; i++) {
+        for(var i = 0; i<obj.input.values.length; i++)
+        {
             if (typeof(obj.input.values[i].value) == 'string')
                 sql += '\'' + obj.input.values[i].value + '\', ';
             else
                 sql += obj.input.values[i].value + ', ';
         }
-        for(var i = 0; i<obj.output.values.length-1; i++) {
-            if (typeof(obj.output.values[i].value) == 'string')
-                sql += '\'' + obj.output.values[i].value + '\', ';
-            else
-                sql += obj.output.values[i].value + ', ';
-        }
+        for(var i = 0; i<obj.output.values.length-1; i++)
+            sql += obj.output.values[i].value + ', ';
 
         sql += obj.output.values[obj.output.values.length-1].value + ')';
         
