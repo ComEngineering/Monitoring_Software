@@ -37,6 +37,19 @@ function init_serial_buses() {
     });
 }
 
+function print_all_regs()
+{
+    str = ""
+    for(var i = 0; i<obj.input.values.length; i++)
+        str += obj.input.values[i].value + ', ';
+    
+    for(var i = 0; i<obj.output.values.length-1; i++)
+        str += obj.output.values[i].value + ', ';
+
+    str += obj.output.values[obj.output.values.length-1].value;
+    console.log(str);
+}
+
 function is_reg_following(p_reg, reg)
 {
     if (reg == null) return false;
@@ -57,9 +70,23 @@ function get_reg_by_name(reg_name)
     return null;
 }
 
+function get_reg_by_reg(reg)
+{
+    for(i = 0; i < obj.input.values.length; i++)
+        if (obj.input.values[i].reg == reg)
+            return obj.input.values[i];
+
+    for (var i = 0; i < obj.output.values.length; i++)
+        if (obj.output.values[i].reg == reg)
+            return obj.output.values[i];
+
+    return null;
+}
+
 function check_reg_range(reg, val)
 {
-    if ((val >= reg.intervals.min) || (val <= reg.intervals.max))
+    if (!reg.intervals) return true;
+    if ((val >= reg.intervals.min) && (val <= reg.intervals.max))
         return true;
     return false;
 }
@@ -92,7 +119,7 @@ var teko_dbus = {
                     if (check_reg_range(r, val)){
                         r.value = val;
                         buses[r.bus].WriteRegister(r.addr, r.reg, val);
-                    } else console.log(r.description, "value out of range")
+                    } else console.log(r.description, "value out of range");
                 break;
 
                 case "modbus_coil":
@@ -102,14 +129,17 @@ var teko_dbus = {
 
                 case "snmp_reg":
                     val = JSON.parse(val);
-                    var types = {"number": "Integer", "string": "OctetString"};
-                    buses[register.bus].snmp_client.set(r.ip, r.community, 0, r.reg, 
-                        snmp.data.createData({ type: types[typeof(v)],
-                        value: val}), function (snmpmsg) {});
+                    if (check_reg_range(r, val)){
+                        r.value = val;
+                        var types = {"number": "Integer", "string": "OctetString"};
+                        buses[r.bus].snmp_client.set(r.ip, r.community, 0, r.reg, 
+                            snmp.data.createData({ type: types[typeof(val)],
+                            value: val}), function (snmpmsg) {});
+                    } else console.log(r.description, "value out of range");
                 break;
 
                 default:
-                    console.log("calling write with unknown register type", r.type)
+                    console.log("calling write with unknown register type:", r.type)
             }
         } catch(e) {
             console.log(e);
@@ -204,7 +234,7 @@ function is_bus_ready(reg) {
 
 //функция чтения/записи параметров
 function update_parameters() {
-    var dirty = false;
+    obj.dirty = false;
 
     for (var i = 0; i < obj.input.values.length; i++) {
         var register = obj.input.values[i];
@@ -232,7 +262,7 @@ function update_parameters() {
                         
                         if (regs[j] != e.value) {
                             e.value = regs[j];
-                            dirty = true;
+                            obj.dirty = true;
                         }
                     }
                 break;
@@ -240,11 +270,15 @@ function update_parameters() {
                 case "snmp_reg":
                     buses[register.bus].snmp_client.get(register.ip, register.community, 0, register.reg, function(snmpmsg) {
                         snmpmsg.pdu.varbinds.forEach(function (varbind) {
-                            if (register.value != varbind.data.value) {
-                                dirty = true;
-                                register.value = varbind.data.value.toString();
+                            var r = get_reg_by_reg("."+varbind.oid);
+                            if (r.value != varbind.data.value) {
+                                obj.dirty = true;
+                                if (typeof(r.value) == 'number')
+                                    r.value = varbind.data.value;
+                                else if (typeof(r.value) == 'string')
+                                    r.value = varbind.data.value.toString();
+                                console.log(r.oid + ' = ' + r.value, typeof(r.value));
                             }
-                            console.log(varbind.oid + ' = ' + register.value, typeof(register.value));
                         });
                     });
                 break;
@@ -261,8 +295,9 @@ function update_parameters() {
         i += sequence_length;
     }
 
-    if (dirty) {
+    if (obj.dirty) {
         console.log('inserting to db');
+        print_all_regs();
         var sql = 'INSERT INTO `mb_parameters` (';
         // задаем колонки для параметров
         for(var i = 0; i<obj.input.values.length; i++)
@@ -272,31 +307,32 @@ function update_parameters() {
 
         sql += obj.output.values[obj.output.values.length-1].name + ') values (';
 
-        for(var i = 0; i<obj.input.values.length; i++)
-        {
+        for(var i = 0; i<obj.input.values.length; i++) {
             if (typeof(obj.input.values[i].value) == 'string')
                 sql += '\'' + obj.input.values[i].value + '\', ';
             else
                 sql += obj.input.values[i].value + ', ';
         }
-        for(var i = 0; i<obj.output.values.length-1; i++)
+        for(var i = 0; i<obj.output.values.length-1; i++) {
             if (typeof(obj.output.values[i].value) == 'string')
                 sql += '\'' + obj.output.values[i].value + '\', ';
             else
                 sql += obj.output.values[i].value + ', ';
+        }
 
         sql += obj.output.values[obj.output.values.length-1].value + ')';
-
+        
         connection.query(sql, function(err) {
             if (err) {
                 console.log('error mysql parameters insertation: ' + err.stack);
             }
         });
-        dirty = false;
+        obj.dirty = false;
 
         teko_dbus.emit('update', Math.floor(new Date() / 1000), 'parameters update');
     }
 
+    //пока обновляем все вместе
     sleep(100, update_parameters);
 }
 
@@ -304,5 +340,3 @@ function update_parameters() {
 function sleep(ms, callback) {
    setTimeout(function(){callback();}, ms);
 }
-
-
