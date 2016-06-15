@@ -321,8 +321,12 @@ function update_parameters() {
             else
                 sql += obj.input.values[i].value + ', ';
         }
-        for(var i = 0; i<obj.output.values.length-1; i++)
-            sql += obj.output.values[i].value + ', ';
+        for(var i = 0; i<obj.output.values.length-1; i++) {
+            if (typeof(obj.output.values[i].value) == 'string')
+                sql += '\'' + obj.output.values[i].value + '\', ';
+            else
+                sql += obj.output.values[i].value + ', ';
+        }
 
         sql += obj.output.values[obj.output.values.length-1].value + ')';
         
