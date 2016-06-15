@@ -21,6 +21,7 @@
         "type": "snmp",
         "delay": 0
     }],
+    "max_fail_requests": 10,
     "input": {
         "values": [{
             "description": "Слово состояния",
@@ -28,6 +29,7 @@
             "sql_type": "INTEGER",
             "addr": 127,
             "reg": 0,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.1.1",
             "type": "modbus_reg",
             "bus": "modbus_internal",
@@ -41,6 +43,7 @@
             "sql_type": "FLOAT",
             "addr": 127,
             "reg": 1,
+            "default": 0,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.2",
             "type": "modbus_reg",
@@ -55,6 +58,7 @@
             "sql_type": "FLOAT",
             "addr": 127,
             "reg": 2,
+            "default": 0,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.3",
             "type": "modbus_reg",
@@ -69,6 +73,7 @@
             "sql_type": "FLOAT",
             "addr": 127,
             "reg": 3,
+            "default": 0,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.4",
             "type": "modbus_reg",
@@ -83,6 +88,7 @@
             "sql_type": "FLOAT",
             "addr": 127,
             "reg": 4,
+            "default": 0,
             "convert": "function(x,i){return (((x[i]<<16)>>0)>>16)/10;}",
             "oid": ".1.3.6.1.4.1.47480.1.5",
             "type": "modbus_reg",
@@ -97,6 +103,7 @@
             "sql_type": "INTEGER",
             "addr": 127,
             "reg": 5,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.1.6",
             "type": "modbus_reg",
             "bus": "modbus_internal",
@@ -110,6 +117,7 @@
             "sql_type": "INTEGER",
             "addr": 127,
             "reg": 6,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.1.7",
             "type": "modbus_reg",
             "bus": "modbus_internal",
@@ -123,6 +131,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 0,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.1",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -136,6 +145,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 1,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.2",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -149,6 +159,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 2,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.3",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -162,6 +173,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 3,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.4",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -175,6 +187,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 4,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.5",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -188,6 +201,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 5,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.6",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -201,6 +215,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 6,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.7",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -214,6 +229,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 7,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.8",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -227,6 +243,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 8,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.9",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -240,6 +257,7 @@
             "sql_type": "INTEGER",
             "addr": 1,
             "reg": 9,
+            "default": 0,
             "oid": ".1.3.6.1.4.1.47480.3.10",
             "type": "modbus_reg",
             "bus": "modbus_external",
@@ -293,7 +311,7 @@
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
-                "max": 65535
+                "max": 16383
             }
         }, {
             "description": "Выхода силовых сухих контактов PDCO",
@@ -307,7 +325,7 @@
             "bus": "modbus_internal",
             "intervals": {
                 "min": 0,
-                "max": 65535
+                "max": 15
             }
         }, {
             "description": "Задание внутренней температуры",
