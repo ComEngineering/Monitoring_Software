@@ -4242,7 +4242,7 @@ DESCRIPTION
 "Ac Ammeter set channel number, Value range: 0 to 4. Unit: rpm.and the value is accurate to two decimal space (.0). If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid."
  ::= { hwSiteAcAmmeterEntry 8 }
 
-hwAcAmmeterClear OBJECT-TYPE
+
 SYNTAX INTEGER
 {
 clear(1),
