@@ -11,6 +11,7 @@ cronie \
 openssh-sshd \
 serve-favicon \
 monitoring-server \
+express \
 node-passport \
 node-passport-local \
 node-connect-flash \
