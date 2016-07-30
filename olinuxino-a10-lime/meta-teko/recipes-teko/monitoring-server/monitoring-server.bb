@@ -5,7 +5,7 @@ PRIORITY = "optional"
 LICENSE = "MIT"
 PR = "r0"
  
-SRCREV = "0d7a7bfe6c9d502752056abe4f994629bdc9f8d6"
+SRCREV = "cf25d9f4cda8b9d8a941a13a22896b40aed79131"
 SRC_URI = "git://github.com/TECOLTD/Monitoring_WEB.git;protocol=git;branch=master \
            file://web-monitoring.sh \
      "
@@ -44,13 +44,13 @@ do_install() {
     install -d ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/fonts/
     install -d ${D}/${MONITORING_DIR}/routes/
     install -d ${D}/${MONITORING_DIR}/views/
-    install -d ${D}/${MONITORING_DIR}/views/fonts/
-    install -d ${D}/${MONITORING_DIR}/views/images/
-    install -d ${D}/${MONITORING_DIR}/views/images/avatar/
-    install -d ${D}/${MONITORING_DIR}/views/images/icons/
-    install -d ${D}/${MONITORING_DIR}/views/scripts/
-    install -d ${D}/${MONITORING_DIR}/views/scripts/input-mask/
-    install -d ${D}/${MONITORING_DIR}/views/scripts/input-mask/phone-codes/
+    install -d ${D}/${MONITORING_DIR}/public/fonts/
+    install -d ${D}/${MONITORING_DIR}/public/images/
+    install -d ${D}/${MONITORING_DIR}/public/images/avatar/
+    install -d ${D}/${MONITORING_DIR}/public/images/icons/
+    install -d ${D}/${MONITORING_DIR}/public/scripts/
+    install -d ${D}/${MONITORING_DIR}/public/scripts/input-mask/
+    install -d ${D}/${MONITORING_DIR}/public/scripts/input-mask/phone-codes/
 
     install -m0644 ${S}/server-application/app.js                      ${D}/${MONITORING_DIR}/app.js
     install -m0644 ${S}/server-application/userBase.js                 ${D}/${MONITORING_DIR}/userBase.js
@@ -67,12 +67,12 @@ do_install() {
     install -m0644 ${S}/server-application/public/${BOOTSTRAP}/js/*    ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/js/
     install -m0644 ${S}/server-application/public/${BOOTSTRAP}/fonts/* ${D}/${MONITORING_DIR}/public/${BOOTSTRAP}/fonts/
     install -m0644 ${S}/server-application/routes/*                    ${D}/${MONITORING_DIR}/routes/
-    install -m0644 ${S}/server-application/views/fonts/*               ${D}/${MONITORING_DIR}/views/fonts/
-#    install -m0644 ${S}/server-application/views/images/*.*              ${D}/${MONITORING_DIR}/views/images/
-    install -m0644 ${S}/server-application/views/images/avatar/*       ${D}/${MONITORING_DIR}/views/images/avatar/
-    install -m0644 ${S}/server-application/views/images/icons/*        ${D}/${MONITORING_DIR}/views/images/icons/
-    install -m0644 ${S}/server-application/views/scripts/*.*           ${D}/${MONITORING_DIR}/views/scripts/
-    install -m0644 ${S}/server-application/views/scripts/input-mask/*.*  ${D}/${MONITORING_DIR}/views/scripts/input-mask/
-    install -m0644 ${S}/server-application/views/scripts/input-mask/phone-codes/*  ${D}/${MONITORING_DIR}/views/scripts/input-mask/phone-codes/
+    install -m0644 ${S}/server-application/public/fonts/*               ${D}/${MONITORING_DIR}/public/fonts/
+#    install -m0644 ${S}/server-application/public/images/*.*              ${D}/${MONITORING_DIR}/public/images/
+    install -m0644 ${S}/server-application/public/images/avatar/*       ${D}/${MONITORING_DIR}/public/images/avatar/
+    install -m0644 ${S}/server-application/public/images/icons/*        ${D}/${MONITORING_DIR}/public/images/icons/
+    install -m0644 ${S}/server-application/public/scripts/*.*           ${D}/${MONITORING_DIR}/public/scripts/
+    install -m0644 ${S}/server-application/public/scripts/input-mask/*.*  ${D}/${MONITORING_DIR}/public/scripts/input-mask/
+    install -m0644 ${S}/server-application/public/scripts/input-mask/phone-codes/*  ${D}/${MONITORING_DIR}/public/scripts/input-mask/phone-codes/
     install -m0644 ${S}/server-application/views/*.*                   ${D}/${MONITORING_DIR}/views/
 }
