@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard | Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/animate.css">
+<!--     <link type="text/css" rel="stylesheet" href="styles/all.css"> -->
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link type="text/css" rel="stylesheet" href="styles/glyphicons.css">
+    <link type="text/css" rel="stylesheet" href="styles/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="styles/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/pace.css">
+    <link type="text/css" rel="stylesheet" href="styles/jquery.news-ticker.css">
+</head>
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        
+        <!--BEGIN BACK TO TOP-->
+        <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+        <!--END BACK TO TOP-->
+        <!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                
+                <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">Teco System Monitoring</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
+            <div class="topbar-main"><a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button" ><i class="fa fa-bars"></i></a><a id="save" href="#" ><i class="fa fa-save"></i></a>
+                
+               
+                
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span class="badge badge-red">3</span></a>
+                        
+                    </li>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-exclamation-triangle fa-fw"></i><span class="badge badge-orange">7</span></a>
+                        
+                    </li>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-flag fa-fw"></i><span class="badge badge-blue">8</span></a>
+                        
+                    </li>
+                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">Admin</span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                            <li><a href="login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+             
+        </div>
+        <!--END TOPBAR-->
+       
+            <!--BEGIN SIDEBAR MENU-->
+              <aside class="main-sidebar" >
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+             
+                <ul class="sidebar-menu">
+                    
+                      
+                    <li><a href="/"><i class="fa glyphicons glyphicons-info-sign fa-fw"></i><span class="menu-title">Обзор системы</span></a></li>
+                    <li class="treeview"><a href="#"><i class="fa glyphicons glyphicons-server fa-fw"></i><span class="menu-title">Модули</span><i class="fa fa-angle-left pull-right"></i></a>
+                       <ul class="treeview-menu" >
+                            <li><a href="modules-main.html"><i class="fa glyphicons glyphicons-server fa-fw"></i><span class="menu-title">Главный модуль</span></a></li>
+                       </ul>
+                    </li>
+                    <li class="treeview"><a href="#"><i class="fa glyphicons glyphicons-temperature fa-fw"></i><span class="menu-title">Климатика</span><i class="fa fa-angle-left pull-right"></i></a>
+                       <ul class="treeview-menu">
+                            <li><a href="climats-cond.html"><i class="fa glyphicons glyphicons-snowflake fa-fw"></i><span class="menu-title">Кондиционер</span></a></li>
+                                <li><a href="climats-pelte.html"><i class="fa glyphicons glyphicons-none-color-swatch fa-fw"></i><span class="menu-title">Пельтье</span></a></li>
+                                <li><a href="climats-nagrevateli.html"><i class="fa glyphicons glyphicons-heat fa-fw "></i><span class="menu-title">Нагреватели</span></a></li>
+                       </ul>
+                    </li>
+                      <li><a href="system-power.html"><i class="fa fa-plug fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Система питания</span></a></li>
+                       <li><a href="system-logs.html"><i class="fa fa-file-text-o fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Логи</span></a></li>
+                     <li  class="treeview active"><a href="#"><i class="fa fa-cog fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Настройки</span><i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu" >
+                            <li><a href="options-net.html"><span class="glyphicons glyphicons-inbox"></span><span class="menu-title">Сеть</span></a></li>
+                    <li><a href="options-snmp.html"><span class="glyphicons glyphicons-cluster"></span><span class="menu-title">SNMP</span></a></li>
+                    <li><a href="options-modbus.html"><span class="glyphicons glyphicons-tree-structure"></span><span class="menu-title">ModBus</span></a></li>
+                     <li class="active"><a href="options-time.html"><span class="glyphicons glyphicons-calendar"></span><span class="menu-title">Время</span></a></li>
+                       </ul></li>
+                </ul>
+            </section>
+        </aside>
+        <div class="content-wrapper" class="skin-blue">
+<div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">
+                            Настройки / Время</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="dashboard.html">Главная</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">Настройки</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">Настройки</li>
+                    </ol>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <!--BEGIN CONTENT-->
+                <div class="page-content">
+					
+					<div class="row mbl">
+						<div class="col-md-5">
+							<div class="panel panel-violet">
+                                            <div class="panel-heading">
+                                                Время</div>
+                                            <div class="panel-body pan">
+                                                <form action="#" class="form-horizontal">
+                                                <div class="form-body pal">
+                                                    <div class="form-group">
+                                                         <label for="inputName" class="col-md-4 control-label">
+                                                            Часовой пояс:</label>
+                                                        <div class="col-md-8">
+                                                            
+                                                            <select class="form-control" id="time">
+                                                            <option>UTC+2</option>
+                                                             
+                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                         <label for="sysDate" class="col-md-4 control-label">
+                                                            Дата:</label>
+                                                        <div class="col-md-8">
+                                                            
+                                                                <div class="input-icon right">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                    <input id="sysDate" type="text" placeholder="" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""></div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                         <label for="sysTime" class="col-md-4 control-label">
+                                                            Время:</label>
+                                                        <div class="col-md-8">
+                                                            
+                                                                <div class="input-icon right">
+                                                                    <i class="fa fa-clock-o"></i>
+                                                                    <input id="sysTime" type="text" placeholder="" class="form-control" data-inputmask="'alias': 'hh:mm'" data-mask=""></div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                      <div class="form-group">
+                                                         <label for="sysSyncNTP" class="col-md-4 control-label">
+                                                            Синхронизация по NTP:</label>
+                                                        <div class="col-md-8">
+                                                            
+                                                                <div class="input-icon right">
+                                                                   <input type="checkbox" name="sysSyncNTP" id="sysSyncNTP" class="switch">
+                                                                </div>
+                                                           
+                                                        </div>
+                                                    </div> 
+                                                    <div class="form-group">
+                                                         <label for="addressNTP" class="col-md-4 control-label">
+                                                            Адрес сервера NTP:</label>
+                                                        <div class="col-md-8">
+                                                            
+                                                                <div class="input-icon right">
+                                                                    <i class="fa fa-text"></i>
+                                                                    <input id="addressNTP" type="text" placeholder="" class="form-control"></div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                     <div class="form-group">
+                                                         <label for="intervalSync" class="col-md-4 control-label">
+                                                            Интервал синхронизации:</label>
+                                                        <div class="col-md-8">
+                                                            
+                                                            <select class="form-control" id="intervalSync">
+                                                            <option>1 день</option>
+                                                             
+                                                             </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                 
+                                                </form>
+                                            </div>
+                                        </div>
+                    </div>
+					</div>
+                </div>
+</div>                
+<script src="script/jquery-1.10.2.min.js"></script>
+    <script src="script/jquery-migrate-1.2.1.min.js"></script>
+    <script src="script/jquery-ui.js"></script>
+    <script src="script/bootstrap.min.js"></script>
+    <script src="script/bootstrap-hover-dropdown.js"></script>
+    <script src="script/html5shiv.js"></script>
+    <script src="script/respond.min.js"></script>
+    
+    <script src="script/jquery.slimscroll.js"></script>
+    <script src="script/jquery.cookie.js"></script>
+    <script src="script/icheck.min.js"></script>
+    <script src="script/custom.min.js"></script>
+    
+    
+    <script src="script/pace.min.js"></script>
+    <script src="script/holder.js"></script>
+    <script src="script/responsive-tabs.js"></script>
+     
+    <script src="script/zabuto_calendar.min.js"></script>
+    <script src="script/index.js"></script>
+  
+        <!-- InputMask -->
+    <script src="script/input-mask/jquery.inputmask.js"></script>
+    <script src="script/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="script/input-mask/jquery.inputmask.extensions.js"></script>
+    
+    <script src="script/bootstrap-switch.min.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="script/main.js"></script>
+
+<script>
+    $("[data-mask]").inputmask();
+</script>          
+</body>
+</html>

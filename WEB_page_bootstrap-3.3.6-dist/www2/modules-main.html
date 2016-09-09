@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard | Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/animate.css">
+    <link type="text/css" rel="stylesheet" href="styles/all.css">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link type="text/css" rel="stylesheet" href="styles/glyphicons.css">
+    <link type="text/css" rel="stylesheet" href="styles/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="styles/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/pace.css">
+    <link type="text/css" rel="stylesheet" href="styles/jquery.news-ticker.css">
+</head>
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        
+        <!--BEGIN BACK TO TOP-->
+        <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+        <!--END BACK TO TOP-->
+        <!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                
+                <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">Teco System Monitoring</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
+            <div class="topbar-main"><a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button" ><i class="fa fa-bars"></i></a><a id="save" href="#" ><i class="fa fa-save"></i></a>
+                
+               
+                
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span class="badge badge-red">3</span></a>
+                        
+                    </li>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-exclamation-triangle fa-fw"></i><span class="badge badge-orange">7</span></a>
+                        
+                    </li>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-flag fa-fw"></i><span class="badge badge-blue">8</span></a>
+                        
+                    </li>
+                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">Admin</span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                            <li><a href="login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+             
+        </div>
+        <!--END TOPBAR-->
+       
+            <!--BEGIN SIDEBAR MENU-->
+              <aside class="main-sidebar" >
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+             
+                <ul class="sidebar-menu">
+                    
+                      
+                    <li><a href="/"><i class="fa glyphicons glyphicons-info-sign fa-fw"></i><span class="menu-title">Обзор системы</span></a></li>
+                    <li class="treeview active"><a href="#"><i class="fa glyphicons glyphicons-server fa-fw"></i><span class="menu-title">Модули</span><i class="fa fa-angle-left pull-right"></i></a>
+                       <ul class="treeview-menu" >
+                            <li class="active"><a href="modules-main.html"><i class="fa glyphicons glyphicons-server fa-fw"></i><span class="menu-title">Главный модуль</span></a></li>
+                       </ul>
+                    </li>
+                    <li class="treeview"><a href="#"><i class="fa glyphicons glyphicons-temperature fa-fw"></i><span class="menu-title">Климатика</span><i class="fa fa-angle-left pull-right"></i></a>
+                       <ul class="treeview-menu">
+                            <li><a href="climats-cond.html"><i class="fa glyphicons glyphicons-snowflake fa-fw"></i><span class="menu-title">Кондиционер</span></a></li>
+                                <li><a href="climats-pelte.html"><i class="fa glyphicons glyphicons-none-color-swatch fa-fw"></i><span class="menu-title">Пельтье</span></a></li>
+                                <li><a href="climats-nagrevateli.html"><i class="fa glyphicons glyphicons-heat fa-fw "></i><span class="menu-title">Нагреватели</span></a></li>
+                       </ul>
+                    </li>
+                      <li><a href="system-power.html"><i class="fa fa-plug fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Система питания</span></a></li>
+                       <li><a href="system-logs.html"><i class="fa fa-file-text-o fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Логи</span></a></li>
+                     <li  class="treeview"><a href="#"><i class="fa fa-cog fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Настройки</span><i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu" >
+                            <li><a href="options-net.html"><span class="glyphicons glyphicons-inbox"></span><span class="menu-title">Сеть</span></a></li>
+                    <li><a href="options-snmp.html"><span class="glyphicons glyphicons-cluster"></span><span class="menu-title">SNMP</span></a></li>
+                    <li><a href="options-modbus.html"><span class="glyphicons glyphicons-tree-structure"></span><span class="menu-title">ModBus</span></a></li>
+                     <li><a href="options-time.html"><span class="glyphicons glyphicons-calendar"></span><span class="menu-title">Время</span></a></li>
+                       </ul></li>
+                </ul>
+            </section>
+        </aside>
+        <div class="content-wrapper" class="skin-blue">
+<div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">
+                            Модули \ Главный модуль</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="dashboard.html">Главная</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">Модули</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">Модули</li>
+                    </ol>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <!--BEGIN CONTENT-->
+                <div class="page-content">
+                    <div class="row mbl">
+    					<ul id="generalTab" class="nav nav-tabs responsive hidden-xs hidden-sm">
+                            <li class="active"><a href="#status-tab" data-toggle="tab">Состояния</a></li>
+                            <li class=""><a href="#params-tab" data-toggle="tab">Параметры</a></li>
+                            <li class=""><a href="#monitor-tab" data-toggle="tab">Монитор событий</a></li>
+                        </ul>
+                        <div id="generalTabContent" class="tab-content responsive hidden-xs hidden-sm">
+                        <div id="status-tab" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Датчики температуры</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="datchiki-temperaturi">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    <tr><td>1</td><td class="active">Dt1</td><td class="success" id="dt1">24.0</td><td class="warning">Верх отсека активного оборудования</td></tr>
+				                                    <tr><td>2</td><td class="active">Dt2</td><td class="success" id="dt2">22.5 °С</td><td class="warning">Низ отсека активного оборудования</td></tr>
+				                                    <tr><td>3</td><td class="active">Dt3</td><td class="success" id="dt3">23.5 °С</td><td class="warning">Спереди отсека АКБ</td></tr>
+				                                    <tr><td>4</td><td class="active">Dt4</td><td class="success" id="dt4">---</td><td class="warning">Disable</td></tr>
+				                                    
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                            
+							 
+                                <div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Состояние дискретных входов</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="status-discrete-in">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        <tr><td>1</td><td class="active">DIN 1</td><td class="success" id="din1">Active</td><td class="warning">Датчик дыма 1 (нормально: Active)</td></tr>
+					                                    <tr><td>2</td><td class="active">DIN 2</td><td class="success" id="din2">Inactive</td><td class="warning">Датчик дыма 2 (нормально: Active)</td></tr>
+					                                    <tr><td>3</td><td class="active">DIN 3</td><td class="success" id="din3">Inactive</td><td class="warning">Датчик удара (нормально: Incative)</td></tr>
+					                                    <tr><td>4</td><td class="active">DIN 4</td><td class="success" id="din4">Inactive</td><td class="warning">0V - Inactive, 12V - Active</td></tr>
+					                                    <tr><td>5</td><td class="active">DIN 5</td><td class="success" id="din5">Inactive</td><td class="warning">0V - Inactive, 12V - Active</td></tr>
+					                                    <tr><td>6</td><td class="active">DIN 6</td><td class="success" id="din6">Inactive</td><td class="warning">0V - Inactive, 12V - Active</td></tr>
+					                                    <tr><td>7</td><td class="active">DIN 7</td><td class="success" id="din7">Inactive</td><td class="warning">0V - Inactive, 12V - Active</td></tr>
+					                                    <tr><td>8</td><td class="active">DIN 8</td><td class="success" id="din8">Inactive</td><td class="warning">0V - Inactive, 12V - Active</td></tr>
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                           		<div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Состояние входов сухих контактов</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="status-in-dry-contacts">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        <tr><td>1</td><td class="active">DI 1</td><td class="success" id="di1">Closed</td><td class="warning">Датчик открытия двери 1 (нормально: Closed)</td></tr>
+					                                    <tr><td>2</td><td class="active">DI 2</td><td class="success" id="di2">Opened</td><td class="warning">Датчик открытия двери 2 (нормально: Closed)</td></tr>
+					                                    <tr><td>3</td><td class="active">DI 3</td><td class="success" id="di3">Opened</td><td class="warning">Датчик затопления (нормально: Closed)</td></tr>
+					                                    <tr><td>4</td><td class="active">DI 4</td><td class="success" id="di4">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>5</td><td class="active">DI 5</td><td class="success" id="di5">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>6</td><td class="active">DI 6</td><td class="success" id="di6">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>7</td><td class="active">DI 7</td><td class="success" id="di7">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>8</td><td class="active">DI 8</td><td class="success" id="di8">Opened</td><td class="warning">Opened - Default</td></tr>
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Состояние выходов сигнальных сухих контактов</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="status-out-signal-dry-contacts">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        <tr><td>1</td><td class="active">SDO 1</td><td class="success" id="sdo1">Closed</td><td class="warning">Включение сирены</td></tr>
+					                                    <tr><td>2</td><td class="active">SDO 2</td><td class="success" id="sdo2">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>3</td><td class="active">SDO 3</td><td class="success" id="sdo3">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>4</td><td class="active">SDO 4</td><td class="success" id="sdo4">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>5</td><td class="active">SDO 5</td><td class="success" id="sdo5">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>6</td><td class="active">SDO 6</td><td class="success" id="sdo6">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>7</td><td class="active">SDO 7</td><td class="success" id="sdo7">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>8</td><td class="active">SDO 8</td><td class="success" id="sdo8">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>9</td><td class="active">SDO 9</td><td class="success" id="sdo9">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>10</td><td class="active">SDO 10</td><td class="success" id="sdo10">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>11</td><td class="active">SDO 11</td><td class="success" id="sdo11">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>12</td><td class="active">SDO 12</td><td class="success" id="sdo12">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>13</td><td class="active">SDO 13</td><td class="success" id="sdo13">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>14</td><td class="active">SDO 14</td><td class="success" id="sdo14">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Состояние выходов силовых сухих контактов</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="status-out-silovih-dry-contacts">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        <tr><td>1</td><td class="active">PDO 1</td><td class="success" id="pdo1">Closed</td><td class="warning">Загродительные огни</td></tr>
+					                                    <tr><td>2</td><td class="active">PDO 2</td><td class="success" id="pdo2">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>3</td><td class="active">PDO 3</td><td class="success" id="pdo3">Opened</td><td class="warning">Opened - Default</td></tr>
+					                                    <tr><td>4</td><td class="active">PDO 4</td><td class="success" id="pdo4">Opened</td><td class="warning">Opened - Default</td></tr>
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+							</div>
+						<div id="params-tab" class="tab-pane fade in ">
+							
+							<div class="row"><div class="col-md-12"><h2>Ручное управление реле</h2></div></div>
+							<div class="row">
+
+                                    <div class="col-lg-4"> 
+                                    	
+                                    	 <form action="#" class="form-horizontal">
+                                    	  <div class="form-body pal">
+
+				                                <table class="table table-hover " id="rele-signal">
+				                                    <thead>
+				                                    <tr>
+				                                        <th> </th><th></th><th>Сигнальные</th>
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    <tr>
+				                                        <td>SDO 1</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO1" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO1" id="swSDO1" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 2</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO2" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO2" id="swSDO2" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 3</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO3" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO3" id="swSDO3" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 4</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO4" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO4" id="swSDO4" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                      <tr>
+				                                        <td>SDO 5</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO5" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO5" id="swSDO5" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 6</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO6" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO6" id="swSDO6" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 7</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO7" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO7" id="swSDO7" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 8</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO8" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO8" id="swSDO8" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 9</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO9" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO9" id="swSDO9" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 10</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO10" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO10" id="swSDO10" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 11</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO11" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO11" id="swSDO11" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                   <tr>
+				                                        <td>SDO 12</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO12" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO12" id="swSDO12" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 13</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO13" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO13" id="swSDO13" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                     <tr>
+				                                        <td>SDO 14</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkSDO14" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swSDO14" id="swSDO14" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                            </form>
+                                </div>
+                                <div class="col-lg-4"> 
+                                     
+                                    	 <form action="#" class="form-horizontal">
+                                    	  <div class="form-body pal">
+
+				                                <table class="table table-hover " id="rele-silovie">
+				                                    <thead>
+				                                    <tr>
+				                                        <th> </th><th></th><th>Силовые</th>
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    <tr>
+				                                        <td>PDO 1</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkPDO1" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swPDO1" id="swPDO1" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>PDO 2</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkPDO2" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swPDO2" id="swPDO2" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>PDO 3</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkPDO3" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swPDO3" id="swPDO3" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>PDO 4</td><td class="active" width="50px"><div class="row-fluid"><div class="col-md-12">
+				                                        <div class="form-group mbn"><div class="checkbox"><label><input tabindex="5" type="checkbox" id="chkPDO4" /></label></div></div></div></div>
+														</td><td><input type="checkbox" name="swPDO4" id="swPDO4" class="switch" data-on-text="Opened" data-off-text="Closed"></td>                                       
+				                                    </tr>
+				                                  
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                            </form>
+                                </div>
+						</div>	
+                        </div>
+						<div id="monitor-tab" class="tab-pane fade in ">
+							<div class="row">
+							<div class="col-md-8">
+								<table class="table table-hover table-bordered" id="status-discrete-in">
+				                                    <thead>
+				                                    	<tr><th colspan="7" class="bggray">Монитор событий</th></tr>
+				                                    <tr>
+				                                    <th>№</th><th>Вкл/выкл</th><th>Наименование</th><th>Строгость события</th><th colspan="2">Значения события<br>(меньше/больше)</th><th>Действие</th>
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    	<tr><td colspan="7" class="bggray">Температурные датчики</td></tr>
+				                                    <tr>
+				                                    	<td>1</td><td class="active"><input type="checkbox" name="mdt1" id="chkmDT1"></td><td>Dt1</td><td class="success">warning</td><td id="chkmDT1r">-20</td><td id="chkmDT1r">50</td><td id="chkeventDT1">no</td>
+				                                    </tr>
+				                                     <tr>
+				                                    	<td>2</td><td class="active"><input type="checkbox" name="mdt2" id="chkmDT2"></td><td>Dt2</td><td class="success">warning</td><td id="chkmDT2r">-20</td><td id="chkmDT1r">50</td><td id="chkeventDT2">no</td>
+				                                    </tr>
+				                                      <tr>
+				                                    	<td>3</td><td class="active"><input type="checkbox" name="mdt3" id="chkmDT3"></td><td>Dt3</td><td class="success">warning</td><td id="chkmDT3r">-20</td><td id="chkmDT3r">50</td><td id="chkeventDT3">no</td>
+				                                    </tr>
+				                                     <tr>
+				                                    	<td>4</td><td class="active"><input type="checkbox" name="mdt4" id="chkmDT4"></td><td>Dt1</td><td class="success">warning</td><td id="chkmDT4r">-20</td><td id="chkmDT4r">50</td><td id="chkeventDT4">no</td>
+				                                    </tr>
+				                                    <tr><td colspan="7" class="bggray">Состояние дискретных входов</td></tr>
+				                                     <tr>
+				                                    	<td>1</td><td class="active"><input type="checkbox" name="mdin1" id="chkmDIN1"></td><td>DIN 1</td><td class="success">warning</td><td id="chkmDIN1r" colspan="2">active</td><td id="chkeventDIN1">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>2</td><td class="active"><input type="checkbox" name="mdin2" id="chkmDIN2"></td><td>DIN 2</td><td class="success">warning</td><td id="chkmDIN2r" colspan="2">active</td><td id="chkeventDIN2">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>3</td><td class="active"><input type="checkbox" name="mdin3" id="chkmDIN3"></td><td>DIN 3</td><td class="success">warning</td><td id="chkmDIN3r" colspan="2">active</td><td id="chkeventDIN3">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>4</td><td class="active"><input type="checkbox" name="mdin4" id="chkmDIN4"></td><td>DIN 4</td><td class="success">warning</td><td id="chkmDIN4r" colspan="2">active</td><td id="chkeventDIN4">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>5</td><td class="active"><input type="checkbox" name="mdin5" id="chkmDIN5"></td><td>DIN 5</td><td class="success">warning</td><td id="chkmDIN5r" colspan="2">active</td><td id="chkeventDIN5">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>6</td><td class="active"><input type="checkbox" name="mdin6" id="chkmDIN6"></td><td>DIN 6</td><td class="success">warning</td><td id="chkmDIN6r" colspan="2">active</td><td id="chkeventDIN6">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>7</td><td class="active"><input type="checkbox" name="mdin7" id="chkmDIN7"></td><td>DIN 7</td><td class="success">warning</td><td id="chkmDIN7r" colspan="2">active</td><td id="chkeventDIN7">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>8</td><td class="active"><input type="checkbox" name="mdin8" id="chkmDIN8"></td><td>DIN 8</td><td class="success">warning</td><td id="chkmDIN8r" colspan="2">active</td><td id="chkeventDIN8">no</td>
+				                                    </tr>
+													<tr><td colspan="7" class="bggray">Состояние входов сухих контактов</td></tr>
+				                                     <tr>
+				                                    	<td>1</td><td class="active"><input type="checkbox" name="mdi1" id="chkmDI1"></td><td>DIN 1</td><td class="success">warning</td><td id="chkmDI1r" colspan="2">active</td><td id="chkeventDI1">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>2</td><td class="active"><input type="checkbox" name="mdi2" id="chkmDI2"></td><td>DIN 2</td><td class="success">warning</td><td id="chkmDI2r" colspan="2">active</td><td id="chkeventDI2">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>3</td><td class="active"><input type="checkbox" name="mdi3" id="chkmDI3"></td><td>DIN 3</td><td class="success">warning</td><td id="chkmDI3r" colspan="2">active</td><td id="chkeventDI3">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>4</td><td class="active"><input type="checkbox" name="mdi4" id="chkmDI4"></td><td>DIN 4</td><td class="success">warning</td><td id="chkmDI4r" colspan="2">active</td><td id="chkeventDI4">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>5</td><td class="active"><input type="checkbox" name="mdi5" id="chkmDI5"></td><td>DIN 5</td><td class="success">warning</td><td id="chkmDI5r" colspan="2">active</td><td id="chkeventDI5">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>6</td><td class="active"><input type="checkbox" name="mdi6" id="chkmDI6"></td><td>DIN 6</td><td class="success">warning</td><td id="chkmDI6r" colspan="2">active</td><td id="chkeventDI6">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>7</td><td class="active"><input type="checkbox" name="mdi7" id="chkmDI7"></td><td>DIN 7</td><td class="success">warning</td><td id="chkmDI7r" colspan="2">active</td><td id="chkeventDI7">no</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>8</td><td class="active"><input type="checkbox" name="mdi8" id="chkmDI8"></td><td>DIN 8</td><td class="success">warning</td><td id="chkmDI8r" colspan="2">active</td><td id="chkeventDI8">no</td>
+				                                    </tr>
+				                                     
+				                                    </tbody>
+				                                </table>
+							</div>
+							</div>
+						</div>
+
+
+                    </div>
+                </div>
+</div>                
+<script src="script/jquery-1.10.2.min.js"></script>
+    <script src="script/jquery-migrate-1.2.1.min.js"></script>
+    <script src="script/jquery-ui.js"></script>
+    <script src="script/bootstrap.min.js"></script>
+    <script src="script/bootstrap-hover-dropdown.js"></script>
+    <script src="script/html5shiv.js"></script>
+    <script src="script/respond.min.js"></script>
+    
+    <script src="script/jquery.slimscroll.js"></script>
+    <script src="script/jquery.cookie.js"></script>
+    <script src="script/icheck.min.js"></script>
+    <script src="script/custom.min.js"></script>
+    
+    
+    <script src="script/pace.min.js"></script>
+    <script src="script/holder.js"></script>
+    <script src="script/responsive-tabs.js"></script>
+     
+    <script src="script/zabuto_calendar.min.js"></script>
+    <script src="script/index.js"></script>
+  
+        <!-- InputMask -->
+    <script src="script/input-mask/jquery.inputmask.js"></script>
+    <script src="script/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="script/input-mask/jquery.inputmask.extensions.js"></script>
+    
+    <script src="script/bootstrap-switch.min.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="script/main.js"></script>
+
+</body>
+</html>

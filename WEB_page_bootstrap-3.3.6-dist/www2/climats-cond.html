@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard | Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/animate.css">
+    <link type="text/css" rel="stylesheet" href="styles/all.css">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link type="text/css" rel="stylesheet" href="styles/glyphicons.css">
+    <link type="text/css" rel="stylesheet" href="styles/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="styles/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/pace.css">
+    <link type="text/css" rel="stylesheet" href="styles/jquery.news-ticker.css">
+</head>
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        
+        <!--BEGIN BACK TO TOP-->
+        <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+        <!--END BACK TO TOP-->
+        <!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                
+                <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">Teco System Monitoring</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
+            <div class="topbar-main"><a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button" ><i class="fa fa-bars"></i></a><a id="save" href="#" ><i class="fa fa-save"></i></a>
+                
+               
+                
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span class="badge badge-red">3</span></a>
+                        
+                    </li>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-exclamation-triangle fa-fw"></i><span class="badge badge-orange">7</span></a>
+                        
+                    </li>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-flag fa-fw"></i><span class="badge badge-blue">8</span></a>
+                        
+                    </li>
+                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">Admin</span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                            <li><a href="login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+             
+        </div>
+        <!--END TOPBAR-->
+       
+            <!--BEGIN SIDEBAR MENU-->
+              <aside class="main-sidebar" >
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+             
+                <ul class="sidebar-menu">
+                    
+                      
+                    <li><a href="/"><i class="fa glyphicons glyphicons-info-sign fa-fw"></i><span class="menu-title">Обзор системы</span></a></li>
+                    <li class="treeview"><a href="#"><i class="fa glyphicons glyphicons-server fa-fw"></i><span class="menu-title">Модули</span><i class="fa fa-angle-left pull-right"></i></a>
+                       <ul class="treeview-menu" >
+                            <li><a href="modules-main.html"><i class="fa glyphicons glyphicons-server fa-fw"></i><span class="menu-title">Главный модуль</span></a></li>
+                       </ul>
+                    </li>
+                    <li class="treeview active"><a href="#"><i class="fa glyphicons glyphicons-temperature fa-fw"></i><span class="menu-title">Климатика</span><i class="fa fa-angle-left pull-right"></i></a>
+                       <ul class="treeview-menu">
+                            <li class="active"><a href="climats-cond.html"><i class="fa glyphicons glyphicons-snowflake fa-fw"></i><span class="menu-title">Кондиционер</span></a></li>
+                                <li><a href="climats-pelte.html"><i class="fa glyphicons glyphicons-none-color-swatch fa-fw"></i><span class="menu-title">Пельтье</span></a></li>
+                                <li><a href="climats-nagrevateli.html"><i class="fa glyphicons glyphicons-heat fa-fw "></i><span class="menu-title">Нагреватели</span></a></li>
+                       </ul>
+                    </li>
+                      <li><a href="system-power.html"><i class="fa fa-plug fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Система питания</span></a></li>
+                       <li><a href="system-logs.html"><i class="fa fa-file-text-o fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Логи</span></a></li>
+                     <li  class="treeview"><a href="#"><i class="fa fa-cog fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Настройки</span><i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu" >
+                            <li><a href="options-net.html"><span class="glyphicons glyphicons-inbox"></span><span class="menu-title">Сеть</span></a></li>
+                    <li><a href="options-snmp.html"><span class="glyphicons glyphicons-cluster"></span><span class="menu-title">SNMP</span></a></li>
+                    <li><a href="options-modbus.html"><span class="glyphicons glyphicons-tree-structure"></span><span class="menu-title">ModBus</span></a></li>
+                     <li><a href="options-time.html"><span class="glyphicons glyphicons-calendar"></span><span class="menu-title">Время</span></a></li>
+                       </ul></li>
+                </ul>
+            </section>
+        </aside>
+        <div class="content-wrapper" class="skin-blue">
+<div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">
+                            Климатика \ Кондиционер</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="dashboard.html">Главная</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">Климатика</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">Климатика</li>
+                    </ol>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <!--BEGIN CONTENT-->
+                <div class="page-content">
+                    <div class="row mbl">
+    					<ul id="generalTab" class="nav nav-tabs responsive hidden-xs hidden-sm">
+                            <li class="active"><a href="#status-tab" data-toggle="tab">Состояния</a></li>
+                            <li class=""><a href="#params-tab" data-toggle="tab">Параметры</a></li>
+                            <li class=""><a href="#monitor-tab" data-toggle="tab">Монитор событий</a></li>
+                        </ul>
+                        <div id="generalTabContent" class="tab-content responsive hidden-xs hidden-sm">
+                        <div id="status-tab" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Температурные датчики кондиционера</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="datchiki-temperaturi-cond">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    <tr>
+				                                        <td>1</td><td class="active">t1 окружающая</td><td class="success" id="dtc1"> 30 °С</td><td class="warning">температура окружающей среды</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>2</td><td class="active">t2 на входе фрикулинга (внутренний контур)</td><td class="success" id="dtc2"> 25 °С</td><td class="warning">температура воздушного потока на входе фрикулинга (внутренний контур)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>3</td><td class="active">t3 внутренняя</td><td class="success" id="dtc3"> 22 °С</td><td class="warning">температура внутри термобокса</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>4</td><td class="active">t4 на выходе испарителя</td><td class="success" id="dtc4"> 18 °С</td><td class="warning">температура воздушного потока на выходе радиатора испарителя (охлаждённый воздух)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>5</td><td class="active">t5 на выходе фрикулинга (внешний контур)</td><td class="success" id="dtc5"> 29 °С</td><td class="warning">температура воздушного потока на выходе фрикулинга (внешний конур)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>6</td><td class="active">t6 на всасывающей трубе компрессора</td><td class="success" id="dtc6"> 7 °С</td><td class="warning">температура на всасывающей трубе компрессора (холодный пар низкого давления)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>7</td><td class="active">t7 на сливе конденсатора</td><td class="success" id="dtc7"> 38 °С</td><td class="warning">температура трубы на сливе радиатора конденсатора (жидкий хладогент)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>8</td><td class="active">t8 температура картера компрессора</td><td class="success" id="dtc8"> 51 °С</td><td class="warning">температура картера компрессора</td>                                       
+				                                    </tr>
+				                                    
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                            
+							 
+                                <div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Состояние систем кондиционера</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="status-system-cond">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    <tr>
+				                                        <td>1</td><td class="active">Напряжение 220В</td><td class="success" id="ssc1">Enable</td><td class="warning">Сетевое напряжение питания кондиционера AC 220V</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>2</td><td class="active">Компрессор</td><td class="success" id="ssc2">Enable</td><td class="warning">Состояние работы компрессора (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>3</td><td class="active">ТЭН подогрева картера</td><td class="success" id="ssc3">Disable</td><td class="warning">Состояние работы ТЭНа подогрева картера (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>4</td><td class="active">ТЭН подогрева дренажа</td><td class="success" id="ssc4">Disable</td><td class="warning">Состояние работы ТЭНа подогрева дренажа (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>5</td><td class="active">ТЭН обогрева термобокса</td><td class="success" id="ssc5">Disable</td><td class="warning">Состояние работы обогрева термобокса (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>6</td><td class="active">Фрикулинг</td><td class="success" id="ssc6">Disable</td><td class="warning">Состояние работы вентилятора фрикулинга (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>7</td><td class="active">Вентилятор испарителя</td><td class="success" id="ssc7">Enable</td><td class="warning">Состояние работы вентилятора испарителя (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>8</td><td class="active">Вентилятор конденсатора</td><td class="success" id="ssc8">Enable</td><td class="warning">Состояние работы вентилятора конденсатора (включен/выключен)</td>                                       
+				                                    </tr>
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                           		<div class="row">
+                                    <div class="col-lg-12"> 
+                                    	<div class="panel panel-grey">
+				                            <div class="panel-heading">Аварии кондиционера</div>
+				                            <div class="panel-body">
+				                                <table class="table table-hover table-bordered" id="dangers-cond">
+				                                    <thead>
+				                                    <tr>
+				                                        <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>                                       
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                     <tr>
+				                                        <td>1</td><td class="active">Высокая t внутри термобокса</td><td class="success" id="avc1">Active</td><td class="warning">активно если t3 выше "t аварийно-высокая"(нормально: Inactive)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>2</td><td class="active">Низкая t внутри термобокса</td><td class="success" id="avc2">Inactive</td><td class="warning">активно если t3 ниже "t аварийно-низкая"(нормально: Inactive)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>3</td><td class="active">Высокое давление в гидросистеме</td><td class="success" id="avc3">Inactive</td><td class="warning">активно если t7 выше "аварийная температуры хладогента" (нормально: Incative)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>4</td><td class="active">Общая неисправность кондиционера</td><td class="success" id="avc4">Inactive</td><td class="warning">активно если произошло  обледенение  испарителя,  не  работают  вентиляторы испарителя,  нет  фреона,  не  работает  компрессор (нормально: Incative)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>5</td><td class="active">Неисправность компрессора</td><td class="success" id="avc5">Inactive</td><td class="warning">активно если t8 выше 90°С (нормально: Incative)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>6</td><td class="active">Неисправность фрикулинга</td><td class="success" id="avc6">Inactive</td><td class="warning">активно если система фрикулинга не работает (нормально: Inactive)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>7</td><td class="active">Нет напряжения AC 220В</td><td class="success" id="avc7">Inactive</td><td class="warning">активно если нет питающего напряжения AC 220V (нормально: Incative)</td>                                       
+				                                    </tr>
+				                                    <tr>
+				                                        <td>8</td><td class="active">Нет напряжения DC 48В</td><td class="success" id="avc8">Inactive</td><td class="warning">активно если нет питающего напряжения DC 48V (нормально: Incative)</td>                                       
+				                                    </tr>
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+                                    </div>
+                                </div>
+                                 
+                                
+							</div>
+						<div id="params-tab" class="tab-pane fade in ">
+							<div class="row">
+								<div class="col-md-8">
+								<table class="table table-hover table-bordered" id="parametrs-cond">
+				                                    <thead>
+				                                    	<tr><th colspan="7" class="bggray">Параметрирование кондиционера</th></tr>
+				                                    <tr>
+				                                    <th>№</th><th>Наименование</th><th>Значение</th><th>Комментарий</th>
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    	
+				                                    <tr>
+				                                    	<td>1</td><td class="active">t внутренняя (С)</td><td id="pc1">22</td><td>задание внутренней температуры (относительно t3)(min:10, max:40)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>2</td><td class="active">Δt гистерезис внутренней температуры (°С)</td><td id="pc2">5</td><td>гистерезис вкл/выкл компрессора (min: 0; max: 20)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>3</td><td class="active">t срочного включения компрессора (°С)</td><td id="pc3">30</td><td>задание температуры срочного включения компрессора минуя все задержки (относительно t3) (min: 20; max: 90)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>4</td><td class="active">t аварийно-высокая (°С)</td><td id="pc4">40</td><td>задание температуры при которой срабатывает авария кондиционера (относительно t3) (min: 20; max: 90)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>5</td><td class="active">t срочного выключения компрессора (°С)</td><td id="pc5">13</td><td>задание температуры срочного выключения компрессора минуя все задержки (относительно t3) (min: 5; max: 30)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>6</td><td class="active">t аварийно-низкая (°С)</td><td id="pc6">7</td><td>задание температуры при которой срабатывает авария кондиционера (относительно t3) (min: 5; max: 30)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>7</td><td class="active">Аварийная температура хладогента (°С)</td><td id="pc7">60</td><td>задание аварийной температуры хладогента на t7 (min: 30; max: 90)</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>8</td><td class="active">Δt гистерезис аварийной температуры (°С)</td><td id="pc8">5</td><td>гистерезис аварийной температуры хладогента (min: 0; max: 30)</td>
+				                                    </tr>
+				                                     <tr>
+				                                    	<td>9</td><td class="active">t включения фрикулига</td><td id="pc9">15</td><td>задание температуры для включения фрикулинга (относительно t1) (min: 0; max: 50)</td>
+				                                    </tr>
+
+				                                    <tr><td colspan="7" class="bggray">Настройка работы вентилятора конденсатора "!!!"</td></tr>
+				                                      <tr>
+				                                      	<td>10</td><td class="active">температура зоны "++"</td><td id="pc10">32</td><td>Задание температуры для зоны «++»</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>11</td><td class="active">температура зоны "+"</td><td id="pc11">30</td><td>Задание температуры для зоны «+»</td>
+				                                    </tr>
+				                                     <tr>
+				                                      	<td>12</td><td class="active">температура зоны "-"</td><td id="pc12">25</td><td>Задание температуры для зоны «-»</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>13</td><td class="active">температура зоны "--"</td><td id="pc13">23</td><td>Задание температуры для зоны «--»</td>
+				                                    </tr>
+				                                     <tr>
+				                                      	<td>14</td><td class="active">Время зоны "++" </td><td id="pc14">6</td><td>Задание интервала времени для зоны "++"</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>15</td><td class="active">Время зоны "+"</td><td id="pc15">10</td><td>Задание интервала времени для зоны "+"</td>
+				                                    </tr>
+				                                     <tr>
+				                                      	<td>16</td><td class="active">Время зоны "-"</td><td id="pc16">125</td><td>Задание интервала времени для зоны "-"</td>
+				                                    </tr>
+				                                     <tr><td colspan="7" class="bggray">Параметры связи</td></tr>
+				                                      <tr>
+				                                      	<td>17</td><td class="active">Адрес кондиционера</td><td id="pc17">1</td><td>задание адреса кондиционера в сети ModBus</td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>18</td><td class="active">Скорость обмена</td><td id="pc18">9600</td><td>скорость обмена в сети ModBus</td>
+				                                    </tr>
+				                                    </tbody>
+				                                </table>
+							</div>
+                                    
+							</div>	
+                        </div>
+						<div id="monitor-tab" class="tab-pane fade in ">
+							<div class="row">
+							<div class="col-md-8">
+								<table class="table table-hover table-bordered" id="status-discrete-in">
+				                                    <thead>
+				                                    	<tr><th colspan="7" class="bggray">Монитор событий</th></tr>
+				                                    <tr>
+				                                    <th>№</th><th>Вкл/выкл</th><th>Наименование</th><th>Строгость события</th><th colspan="2">Значения события<br>(меньше/больше)</th><th>Действие</th>
+				                                    </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                    	<tr><td colspan="7" class="bggray">Температурные датчики кондиционера</td></tr>
+				                                    <tr>
+				                                    	<td>1</td><td class="active"><input type="checkbox" name="mdt1"></td><td>t1 окружающая</td><td class="success"><input type="text" id="mdts1" value="Warning"></td><td><input type="text" id="mdtm1" value="-20"></td><td><input type="text" id="mdtb1" value="50"></td><td><input type="text" id="mdtev1" value="SDO 6"></td>
+				                                    </tr>
+				                                     <tr>
+				                                    	<td>2</td><td class="active"><input type="checkbox" name="mdt2"></td><td>t2 на входе фрикулинга (внутренний контур)</td><td class="success"><input type="text" id="mdts2" value="Minor"></td><td><input type="text" id="mdtm2" value="5"></td><td><input type="text" id="mdtb2" value="38"></td><td><input type="text" id="mdtev2" value="SDO 9"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>3</td><td class="active"><input type="checkbox" name="mdt3"></td><td>t3 внутренняя</td><td class="success"><input type="text" id="mdts3" value="Major"></td><td><input type="text" id="mdtm3" value="5"></td><td><input type="text" id="mdtb3" value="38"></td><td><input type="text" id="mdtev3" value="SDO 9"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>4</td><td class="active"><input type="checkbox" name="mdt4"></td><td>t4 на выходе испарителя</td><td class="success"><input type="text" id="mdts4" value="Event"></td><td><input type="text" id="mdtm4" value="15"></td><td><input type="text" id="mdtb4" value="30"></td><td><input type="text" id="mdtev4" value="SDO 4"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>5</td><td class="active"><input type="checkbox" name="mdt5"></td><td>t5 на выходе фрикулинга (внешний контур)</td><td class="success"><input type="text" id="mdts5" value="Event"></td><td><input type="text" id="mdtm5" value="10"></td><td><input type="text" id="mdtb5" value="40"></td><td><input type="text" id="mdtev5" value="SDO 5"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>6</td><td class="active"><input type="checkbox" name="mdt6"></td><td>t6 на всасывающей трубе компрессора</td><td class="success"><input type="text" id="mdts6" value="Event"></td><td><input type="text" id="mdtm6" value="10"></td><td><input type="text" id="mdtb6" value="40"></td><td><input type="text" id="mdtev6" value="SDO 6"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>7</td><td class="active"><input type="checkbox" name="mdt7"></td><td>t7 на сливе конденсатора</td><td class="success"><input type="text" id="mdts7" value="Event"></td><td><input type="text" id="mdtm7" value="15"></td><td><input type="text" id="mdtb7" value="30"></td><td><input type="text" id="mdtev7" value="SDO 7"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>8</td><td class="active"><input type="checkbox" name="mdt8"></td><td>t8 температура картера компрессора</td><td class="success"><input type="text" id="mdts8" value="Event"></td><td><input type="text" id="mdtm8" value="15"></td><td><input type="text" id="mdtb8" value="30"></td><td><input type="text" id="mdtev8" value="PDO 3"></td>
+				                                    </tr>
+				                                    	<tr><td colspan="7" class="bggray">Аварии кондиционера</td></tr>
+				                                    <tr>
+				                                    	<td>1</td><td class="active"><input type="checkbox" name="amdt1"></td><td>Высокая t внутри термобокса</td><td class="success"><input type="text" id="amdts1" value="Major"></td><td colspan="2"><input type="text" id="amdtm1" value="Active"></td><td><input type="text" id="amdtev1" value="SDO 3"></td>
+				                                    </tr>
+				                                     <tr>
+				                                    	<td>2</td><td class="active"><input type="checkbox" name="amdt2"></td><td>Низкая t внутри термобокса</td><td class="success"><input type="text" id="amdts2" value="Minor"></td><td colspan="2"><input type="text" id="amdtm2" value="Active"></td><td><input type="text" id="amdtev2" value="SDO 3"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>3</td><td class="active"><input type="checkbox" name="amdt3"></td><td>Высокое давление в гидросистеме</td><td class="success"><input type="text" id="amdts3" value="Warning"></td><td colspan="2"><input type="text" id="amdtm3" value="Active"></td><td><input type="text" id="amdtev3" value="SDO 4"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>4</td><td class="active"><input type="checkbox" name="amdt4"></td><td>Общая неисправность кондиционера</td><td class="success"><input type="text" id="amdts4" value="Event"></td><td colspan="2"><input type="text" id="amdtm4" value="Active"></td><td><input type="text" id="amdtev4" value="SDO 4"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>5</td><td class="active"><input type="checkbox" name="amdt5"></td><td>Неисправность компрессора</td><td class="success"><input type="text" id="amdts5" value="Event"></td><td colspan="2"><input type="text" id="amdtm5" value="Active"></td><td><input type="text" id="amdtev5" value="SDO 5"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>6</td><td class="active"><input type="checkbox" name="amdt6"></td><td>Неисправность фрикулинга</td><td class="success"><input type="text" id="amdts6" value="Event"></td><td colspan="2"><input type="text" id="amdtm6" value="Active"></td><td><input type="text" id="amdtev6" value="SDO 6"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>7</td><td class="active"><input type="checkbox" name="amdt7"></td><td>Нет напряжения AC 220В</td><td class="success"><input type="text" id="amdts7" value="Event"></td><td colspan="2"><input type="text" id="amdtm7" value="Inactive"></td><td><input type="text" id="amdtev7" value="SDO 7"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>8</td><td class="active"><input type="checkbox" name="amdt8"></td><td>Нет напряжения DC 48В</td><td class="success"><input type="text" id="amdts8" value="Event"></td><td colspan="2"><input type="text" id="amdtm8" value="Inactive"></td><td><input type="text" id="amdtev8" value="PDO 3"></td>
+				                                    </tr>
+				                                    	<tr><td colspan="7" class="bggray">Состояния систем кондиционера</td></tr>
+				                                    <tr>
+				                                    	<td>1</td><td class="active"><input type="checkbox" name="smdt1"></td><td>Напряжение 220В</td><td class="success"><input type="text" id="smdts1" value="Major"></td><td colspan="2"><input type="text" id="smdtm1" value="Enable"></td><td><input type="text" id="smdtev1" value="SDO 3"></td>
+				                                    </tr>
+				                                     <tr>
+				                                    	<td>2</td><td class="active"><input type="checkbox" name="smdt2"></td><td>Компрессор</td><td class="success"><input type="text" id="smdts2" value="Minor"></td><td colspan="2"><input type="text" id="smdtm2" value="Disable"></td><td><input type="text" id="smdtev2" value="SDO 3"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>3</td><td class="active"><input type="checkbox" name="smdt3"></td><td>ТЭН подогрева картера</td><td class="success"><input type="text" id="smdts3" value="Warning"></td><td colspan="2"><input type="text" id="smdtm3" value="Disable"></td><td><input type="text" id="smdtev3" value="SDO 4"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>4</td><td class="active"><input type="checkbox" name="smdt4"></td><td>ТЭН подогрева дренажа</td><td class="success"><input type="text" id="smdts4" value="Event"></td><td colspan="2"><input type="text" id="smdtm4" value="Enable"></td><td><input type="text" id="smdtev4" value="SDO 4"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>5</td><td class="active"><input type="checkbox" name="smdt5"></td><td>ТЭН обогрева термобокса</td><td class="success"><input type="text" id="smdts5" value="Event"></td><td colspan="2"><input type="text" id="smdtm5" value="Enable"></td><td><input type="text" id="smdtev5" value="SDO 5"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>6</td><td class="active"><input type="checkbox" name="smdt6"></td><td>Фрикулинг</td><td class="success"><input type="text" id="smdts6" value="Event"></td><td colspan="2"><input type="text" id="smdtm6" value="Enable"></td><td><input type="text" id="smdtev6" value="SDO 6"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>7</td><td class="active"><input type="checkbox" name="smdt7"></td><td>Вентилятор испарителя</td><td class="success"><input type="text" id="smdts7" value="Event"></td><td colspan="2"><input type="text" id="smdtm7" value="Disable"></td><td><input type="text" id="smdtev7" value="SDO 7"></td>
+				                                    </tr>
+				                                    <tr>
+				                                    	<td>8</td><td class="active"><input type="checkbox" name="smdt8"></td><td>Вентилятор конденсатора</td><td class="success"><input type="text" id="smdts8" value="Event"></td><td colspan="2"><input type="text" id="smdtm8" value="Disable"></td><td><input type="text" id="smdtev8" value="PDO 3"></td>
+				                                    </tr>
+				                                    </tbody>
+				                                </table>
+							</div>
+							</div>
+						</div>
+
+
+                    </div>
+                </div>
+</div>                
+
+<script src="script/jquery-1.10.2.min.js"></script>
+    <script src="script/jquery-migrate-1.2.1.min.js"></script>
+    <script src="script/jquery-ui.js"></script>
+    <script src="script/bootstrap.min.js"></script>
+    <script src="script/bootstrap-hover-dropdown.js"></script>
+    <script src="script/html5shiv.js"></script>
+    <script src="script/respond.min.js"></script>
+    
+    <script src="script/jquery.slimscroll.js"></script>
+    <script src="script/jquery.cookie.js"></script>
+    <script src="script/icheck.min.js"></script>
+    <script src="script/custom.min.js"></script>
+    
+    
+    <script src="script/pace.min.js"></script>
+    <script src="script/holder.js"></script>
+    <script src="script/responsive-tabs.js"></script>
+     
+    <script src="script/zabuto_calendar.min.js"></script>
+    <script src="script/index.js"></script>
+  
+        <!-- InputMask -->
+    <script src="script/input-mask/jquery.inputmask.js"></script>
+    <script src="script/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="script/input-mask/jquery.inputmask.extensions.js"></script>
+    
+    <script src="script/bootstrap-switch.min.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="script/main.js"></script>
+
+</body>
+</html>
